@@ -23,9 +23,10 @@ if (empty($_POST) === false) {
 }
 
 include 'includes/overall/header.php';
+
 ?>
 
-    <h1>Change password</h1>
+	<h1>Change password</h1>
 
 <?php
 if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
@@ -38,27 +39,27 @@ if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
         echo output_errors($errors);
     }
 ?>
-
-    <form action="" method="post">
-        <ul>
-            <li>
-                Current password*:<br>
-                <input type="password" name="current_password">
-            </li>
-            <li>
-                New password*:<br>
-                <input type="password" name="password">
-            </li>
-            <li>
-                New password again*:<br>
-                <input type="password" name="password_again">
-            </li>
-            <li>
-                <input type="submit" value="Change password">
-            </li>
-        </ul>
-    </form>
-
+	<section>
+        <form action="" method="post">
+            <ul>
+                <li>
+                    Current password*:<br>
+                    <input type="password" name="current_password">
+                </li>
+                <li>
+                    New password*:<br>
+                    <input type="password" name="password">
+                </li>
+                <li>
+                    New password again*:<br>
+                    <input type="password" name="password_again">
+                </li>
+                <li>
+                    <input type="submit" value="Change password">
+                </li>
+            </ul>
+        </form>
+	</section>
 <?php
 }
 include 'includes/overall/footer.php';

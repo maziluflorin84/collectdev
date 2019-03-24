@@ -16,6 +16,13 @@ function protect_page() {
     }
 }
 
+function protect_admin_page($admin) {
+    if (!$admin) {
+        header('Location: protected_admin.php');
+        exit();
+    }
+}
+
 
 function array_sanitize(&$item) {
     global $db;

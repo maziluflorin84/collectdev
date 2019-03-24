@@ -76,7 +76,7 @@ function user_data($user_id) {
         $stmt = $db->prepare("SELECT $fields FROM `users` WHERE `ID` = ?");
         $stmt->bind_param('i', $user_id);
         $stmt->execute();
-        $stmt->bind_result($data['ID'], $data['email'], $data['password'], $data['first_name'], $data['last_name']);
+        $stmt->bind_result($data['ID'], $data['email'], $data['password'], $data['first_name'], $data['last_name'], $data['admin']);
         while ($stmt->fetch()) {
             return $data;
         }

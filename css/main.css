@@ -14,7 +14,7 @@ h1, h2 {
 }
 p {
     padding:0;
-    margin:0 0 20px 0;
+    margin:0 0 10px 0;
 }
 a:link, a:visited {
     text-decoration:underline;
@@ -26,8 +26,8 @@ a:hover {
 ul li {
     padding:5px 0;
 }
-ul li input[type="text"], ul li input[type="password"], ul li input[type="email"] {
-    width:200px;
+ul li input[type="text"], ul li input[type="password"], ul li input[type="email"], ul li select {
+    width:250px;
 }
 /* Headers */
 h1 {
@@ -49,7 +49,7 @@ body {
     font-family:Arial;
     font-size:0.8em;
 }
-#container, footer {
+main, footer {
     background:#fff;
     width:920px;
     margin:0 auto;
@@ -60,7 +60,7 @@ header {
     padding:10px;
     margin:0 auto 10px auto;
 }
-#container {
+main {
     min-height:500px;
     border-radius:5px 5px 0 0;
 }
@@ -109,6 +109,10 @@ aside {
 /* Login */
 #login li.link {
     margin-top:5px;
+}
+/* Section */
+section {
+	padding: 0 0 20px 0;
 }
 /* Footer */
 footer {

@@ -49,7 +49,7 @@ if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
         echo output_errors($errors);
     }
 ?>
-
+<section>
     <form action="" method="post">
         <ul>
             <li>
@@ -78,6 +78,7 @@ if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
         </ul>
     </form>
     * required
+</section>
 <?php
 }
 include 'includes/overall/footer.php';

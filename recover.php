@@ -10,7 +10,9 @@ include 'includes/overall/header.php';
 if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
 ?>
 
-    <p>We have emailed you</p>
+<section>
+	<p>We have emailed you</p>
+</section>
 
 <?php
 } else {
@@ -24,7 +26,7 @@ if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
         }
     }
     ?>
-
+<section>
     <form action="" method="post">
         <ul>
             <li>
@@ -36,6 +38,7 @@ if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
             </li>
         </ul>
     </form>
+</section>
 
     <?php
 }

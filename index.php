@@ -4,8 +4,10 @@ include 'includes/overall/header.php';
 
 if (logged_in()) {?>
 
-    <h1>My Devices</h1>
-    <p>Just a template</p>
+	<h1>My Configurations</h1>
+	<section>
+		<p>Just a template</p>
+	</section>
 
 <?php }
 
