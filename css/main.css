@@ -106,6 +106,12 @@ aside {
     border-left:1px dashed #aaa;
     padding-left:15px;
 }
+code {
+	border: 2px;
+	border-style: solid;
+	border-color: #DBDBDB;
+	padding: 0.5em;
+}
 /* Login */
 #login li.link {
     margin-top:5px;
