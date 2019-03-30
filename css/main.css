@@ -101,15 +101,20 @@ nav ul li a.last {
 }
 /* Aside */
 aside {
-    width:260px;
-    float:right;
-    border-left:1px dashed #aaa;
-    padding-left:15px;
+    width: 260px;
+    float: right;
+    border-left: 1px dashed #aaa;
+    padding-left: 15px;
+    margin-left: 15px;
+}
+pre {
+    margin: 0;
+    padding: 0;
 }
 code {
-	border: 2px;
+	border: 1px;
 	border-style: solid;
-	border-color: #DBDBDB;
+	border-color: #999;
 	padding: 0.5em;
 }
 /* Login */
