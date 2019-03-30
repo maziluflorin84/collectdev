@@ -12,19 +12,23 @@ if (logged_in()) {
 <section>
     <pre>
         <code id="configuration" class="arduino"
-            style="overflow: auto; height: 400px;">
-<?php
+            style="overflow: auto; height: 400px;"><?php
     $handle = fopen("device_templates/client_server_communication/client_server_communication.ino", "r");
     if ($handle) {
+        $first_lines = true;
         while (($line = fgets($handle)) !== false) {
-            echo str_replace("<", "&lt;", $line);
+            if (!empty(trim($line)) || !$first_lines) {
+                echo str_replace("<", "&lt;", $line);
+                $first_lines = false;
+            } else {
+                
+            }
         }
         fclose($handle);
     } else {
         echo "File not found";
     }
-    ?>
-		</code>
+      ?></code>
 	</pre>
     <button onclick="copyToClipboard('#configuration')">Copy text</button>
 </section>
