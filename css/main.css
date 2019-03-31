@@ -113,11 +113,13 @@ pre {
 }
 code {
     font-family: monospace;
-    font-size: medium;
 	border: 1px;
 	border-style: solid;
 	border-color: #999;
 	padding: 0.5em;
+	font-size:0.8rem;
+	overflow: auto;
+    height: 400px;
 }
 /* Login */
 #login li.link {
