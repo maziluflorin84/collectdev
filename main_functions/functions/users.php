@@ -126,3 +126,8 @@ function login($email, $password) {
         return $row == 1 ? $user_id : false;
     }
 }
+
+function insertDevice($device_data) {
+    global $db;
+    array_walk($device_data, 'array_sanitize');
+}
