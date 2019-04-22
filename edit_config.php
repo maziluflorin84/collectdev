@@ -11,7 +11,8 @@ if (logged_in()) {
 </section>
 <section>
     <pre>
-        <code id="configuration" class="arduino"><?php
+        <code id="configuration" class="arduino">
+    <?php
     $handle = fopen("device_templates/client_server_communication/client_server_communication.ino", "r");
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
@@ -21,7 +22,8 @@ if (logged_in()) {
     } else {
         echo "File not found";
     }
-      ?></code>
+    ?>
+        </code>
 	</pre>
     <button onclick="copyToClipboard('#configuration')">Copy text</button>
 </section>
