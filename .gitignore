@@ -11,3 +11,4 @@ filetypes.xml
 .buildpath
 .project
 .settings/
+.vscode/
