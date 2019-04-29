@@ -12,3 +12,4 @@ filetypes.xml
 .project
 .settings/
 .vscode/
+*.code-workspace

@@ -92,6 +92,17 @@ nav ul li {
 }
 nav ul li a {
     text-decoration:none;
+    background-color: lightgray;
+    padding: 0.5rem;
+    border: 1px solid rgb(100, 115, 130);
+    border-radius: 0.5rem;
+}
+nav ul li a:hover {
+    text-decoration:none;
+    background-color: darkgray;
+    padding: 0.5rem;
+    border: 1px solid rgb(100, 115, 130);
+    border-radius: 0.5rem;
 }
 nav ul li.current {
     font-weight:bold;
@@ -137,4 +148,9 @@ footer {
 /* Misc */
 .clear {
     clear:both;
-}/* CSS Document */
+}
+.successful-action {
+    color: #008800;
+    margin-top: 1em;
+}
+/* CSS Document */

@@ -68,6 +68,7 @@ if (empty($_POST) === false) {
         $device_data = array(
             'name' => $_POST['devName'],
             'type' => $_POST['devType'],
+            'url' => $_POST['url']
 //             'image' => $_POST['image']
         );
         $inserted_id = insert_device($device_data);
@@ -86,7 +87,7 @@ if (empty($_POST) === false) {
     if (empty($errors) === false) {
         echo output_errors($errors);
     } else  if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
-        echo '<p style="color: #008800; margin-top: 1em;">Device has been added!</p>';
+        echo '<p class="successful-action">Device has been added!</p>';
     }
 ?>
 
@@ -104,6 +105,8 @@ if (empty($_POST) === false) {
             </select>
             </li>
             <li>Device name*:<br> <input type="text" name="devName">
+            </li>
+            <li>Device URL:<br> <input type="text" name="url">
             </li>
         </ul>
         <button type="submit" id="devSubmit" name="submit"

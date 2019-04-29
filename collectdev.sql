@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2019 at 04:44 PM
+-- Generation Time: Apr 30, 2019 at 01:34 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -48,6 +48,11 @@ CREATE TABLE `devices` (
   `ID` int(11) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
+  `library_code` varchar(255) DEFAULT NULL,
+  `variable_code` varchar(255) DEFAULT NULL,
+  `setup_code` varchar(255) DEFAULT NULL,
+  `loop_code` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
