@@ -10,7 +10,6 @@ if (empty($_POST) === false) {
     foreach ($_POST as $key => $value) {
         if (empty($value) && in_array($key, $required_fields) === true) {
             $errors[] = 'Fields marked with an asterisk are required';
-            // break 1;
         }
     }
     $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
@@ -80,6 +79,10 @@ if (empty($errors) === false) {
             </li>
             <li>Device URL:<br> <input type="text" name="url">
             </li>
+            <!-- <li>Pins needed: <input type="number" name="numOfPins" id="numOfPins" min="0" max="10" value="0" style="width: 1.5em;" readonly="true">
+                <input type="button" value="-" onclick="incDecValue('numOfPins', '-')"><input type="button" value="+" onclick="incDecValue('numOfPins', '+')">
+                <input type="button" value="Ok" onclick="drawPinFields('numOfPins', 'formListId')">
+            </li> -->
             <li>Device image:<br> <input type="file" name="image">
             </li>
         </ul>
