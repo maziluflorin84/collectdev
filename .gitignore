@@ -17,3 +17,4 @@ device_code/*
 !device_code/.gitkeep
 images/*
 !images/.gitkeep
+!images/.favicon.ico
