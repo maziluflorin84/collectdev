@@ -77,7 +77,7 @@ function create_device_code($type, $path, $index) {
                 $field = "loop_code";
                 break;
         }
-        $updating = '`' . $field . '` = \'' . $filename . '\'';
+        $updating = '`' . $field . '` = \'' . $index . "_" . $type . ".txt" . '\'';
         $stmt = $db->prepare("UPDATE `devices` SET $updating WHERE `ID` = ?");
         $stmt->bind_param('i', $index);
         $stmt->execute();

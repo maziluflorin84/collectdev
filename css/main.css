@@ -11,13 +11,6 @@ p {
     padding:0;
     margin:0 0 10px 0;
 }
-a:link, a:visited {
-    text-decoration:underline;
-    color:#000;
-}
-a:hover {
-    text-decoration:none;
-}
 ul {
     padding:0;
     margin:0 0 20px 0;
@@ -26,7 +19,7 @@ ul {
 ul li {
     padding:5px 0;
 }
-ul li input[type="text"], ul li input[type="password"], ul li input[type="email"], ul li select {
+ul li input[type="text"], ul li input[type="password"], ul li input[type="email"], ul li input[type="file"], ul li select {
     width:250px;
 }
 /* Headers */
@@ -75,6 +68,13 @@ footer {
     padding:0 5px;
     font-weight:normal;
     border-bottom:1px solid #ddd;
+}
+.widget a:link, a:visited {
+    text-decoration:underline;
+    color:#000;
+}
+.widget a:hover {
+    text-decoration:none;
 }
 .widget .inner {
     margin:0 10px;

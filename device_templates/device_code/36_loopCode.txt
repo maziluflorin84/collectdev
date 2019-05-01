@@ -1,0 +1,17 @@
+if (client.available()) {
+    char c = client.read();
+    Serial.write(c);
+    flag = 1;
+  }
+
+  // if the server's disconnected, stop the client
+  if (flag == 1) {
+    if (!client.connected()) {
+      Serial.println();
+      Serial.println("Disconnecting from server...");
+      client.stop();
+//      do nothing forevermore
+//      while (true);
+      flag = 0;
+    }
+  }

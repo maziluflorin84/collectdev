@@ -1,0 +1,39 @@
+char ssid[] = "Miruna";
+char pass[] = "breniuc2312";
+
+const byte rxPin = 6;
+const byte txPin = 7;
+
+SoftwareSerial ESP8266(rxPin, txPin);
+
+int status = WL_IDLE_STATUS;
+int flag = 0;
+
+char server[] = "students.info.uaic.ro";
+String uri = "/~florin.mazilu/collectdev/esppost.php";
+
+WiFiEspClient client;
+
+class Value {
+  public:
+    String element;
+    int value;
+};
+
+void printWifiStatus()
+{
+  // print the SSID of the network you're attached to
+  Serial.print("SSID: ");
+  Serial.println(WiFi.SSID());
+
+  // print your WiFi shield's IP address
+  IPAddress ip = WiFi.localIP();
+  Serial.print("IP Address: ");
+  Serial.println(ip);
+
+  // print the received signal strength
+  long rssi = WiFi.RSSI();
+  Serial.print("Signal strength (RSSI):");
+  Serial.print(rssi);
+  Serial.println(" dBm");
+}
