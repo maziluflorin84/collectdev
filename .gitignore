@@ -13,7 +13,7 @@ filetypes.xml
 .settings/
 .vscode/
 *.code-workspace
-device_code/*
-!device_code/.gitkeep
+device_templates/device_code/*
+!device_templates/device_code/.gitkeep
 images/*
 !images/.favicon.ico

@@ -1,5 +1,0 @@
-#include <SoftwareSerial.h>
-#include <WiFiEsp.h>
-#include <WiFiEspClient.h>
-#include <WiFiEspServer.h>
-#include <WiFiEspUdp.h>
