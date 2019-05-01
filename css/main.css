@@ -1,116 +1,160 @@
 @charset "utf-8";
+
 /* CSS Document */
 
+
 /* Resets */
-h1, h2 {
-    padding:0;
-    margin:0 0 20px 0;
-    font-weight:normal;
-}
-p {
-    padding:0;
-    margin:0 0 10px 0;
-}
-ul {
-    padding:0;
-    margin:0 0 20px 0;
-    list-style:none;
-}
-ul li {
-    padding:5px 0;
-}
-ul li input[type="text"], ul li input[type="password"], ul li input[type="email"], ul li input[type="file"], ul li select {
-    width:250px;
-}
-/* Headers */
-h1 {
-    font-size:1.8em;
-}
+
+h1,
 h2 {
-    font-size:1.4em;
+    padding: 0;
+    margin: 0 0 20px 0;
+    font-weight: normal;
 }
+
+p {
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+
+ul {
+    padding: 0;
+    margin: 0 0 20px 0;
+    list-style: none;
+}
+
+ul li {
+    padding: 5px 0;
+}
+
+ul li input[type="text"],
+ul li input[type="password"],
+ul li input[type="email"],
+ul li input[type="file"],
+ul li select {
+    width: 250px;
+}
+
+
+/* Headers */
+
+h1 {
+    font-size: 1.8em;
+}
+
+h2 {
+    font-size: 1.4em;
+}
+
 .logo {
-    font:2em Arial;
-    margin:0 0 10px 0;
-    padding:0;
-    width:200px;
-    color:#fff;
+    text-decoration: none;
 }
+
+.logo h1 {
+    color: #000;
+}
+
+
 /* Containers */
+
 body {
-    background:lightslategray;
-    font-family:Arial, sans-serif;
-    font-size:0.8em;
+    background: lightslategray;
+    font-family: Arial, sans-serif;
+    font-size: 0.8em;
 }
-main, footer {
-    background:#fff;
-    width:920px;
-    margin:0 auto;
-    padding:20px;
-}
-header {
-    width:940px;
-    padding:10px;
-    margin:0 auto 10px auto;
-}
-main {
-    min-height:500px;
-    border-radius:5px 5px 0 0;
-}
+
+main,
 footer {
-    border-radius:0 0 5px 5px;
+    background: #fff;
+    width: 920px;
+    margin: 0 auto;
+    padding: 20px;
 }
+
+header {
+    width: 940px;
+    padding: 10px;
+    margin: 0 auto 10px auto;
+}
+
+main {
+    min-height: 500px;
+    border-radius: 5px 5px 0 0;
+}
+
+footer {
+    border-radius: 0 0 5px 5px;
+}
+
 .widget {
-    margin-bottom:20px;
+    margin-bottom: 20px;
 }
+
 .widget h2 {
-    margin:0 0 10px 0;
-    padding:0 5px;
-    font-weight:normal;
-    border-bottom:1px solid #ddd;
+    margin: 0 0 10px 0;
+    padding: 0 5px;
+    font-weight: normal;
+    border-bottom: 1px solid #ddd;
 }
-.widget a:link, a:visited {
-    text-decoration:underline;
-    color:#000;
+
+.widget ul li a:link,
+.widget ul li a:visited {
+    text-decoration: underline;
+    color: #000;
 }
-.widget a:hover {
-    text-decoration:none;
+
+.widget ul li a:hover {
+    text-decoration: none;
 }
+
 .widget .inner {
-    margin:0 10px;
+    margin: 0 10px;
 }
+
+
 /* Navigation */
+
 nav {
-    float:left;
+    float: left;
 }
+
 nav ul {
-    margin:0;
+    margin: 0;
 }
+
 nav ul li {
-    display:inline;
-    margin-right:10px;
+    display: inline;
+    margin-right: 10px;
 }
+
 nav ul li a {
-    text-decoration:none;
+    text-decoration: none;
     background-color: lightgray;
     padding: 0.5rem;
     border: 1px solid rgb(100, 115, 130);
     border-radius: 0.5rem;
+    color: #000;
 }
+
 nav ul li a:hover {
-    text-decoration:none;
+    /* text-decoration:none; */
     background-color: darkgray;
-    padding: 0.5rem;
+    /* padding: 0.5rem;
     border: 1px solid rgb(100, 115, 130);
-    border-radius: 0.5rem;
+    border-radius: 0.5rem; */
 }
-nav ul li.current {
-    font-weight:bold;
+
+nav ul li a.current {
+    font-weight: bold;
 }
+
 nav ul li a.last {
-    border-right:0;
+    border-right: 0;
 }
+
+
 /* Aside */
+
 aside {
     width: 260px;
     float: right;
@@ -118,39 +162,56 @@ aside {
     padding-left: 15px;
     margin-left: 15px;
 }
+
 pre {
     margin: 0;
     padding: 0;
 }
+
 code {
     font-family: monospace;
-	border: 1px;
-	border-style: solid;
-	border-color: #999;
-	padding: 0.5em;
-	font-size:0.8rem;
-	overflow: auto;
+    border: 1px;
+    border-style: solid;
+    border-color: #999;
+    padding: 0.5em;
+    font-size: 0.8rem;
+    overflow: auto;
     height: 400px;
 }
+
+
 /* Login */
+
 #login li.link {
-    margin-top:5px;
+    margin-top: 5px;
 }
+
+
 /* Section */
+
 section {
-	padding: 0 0 20px 0;
+    padding: 0 0 20px 0;
 }
+
+
 /* Footer */
+
 footer {
-    border-top:1px dashed #ddd;
-    color:#999;
+    border-top: 1px dashed #ddd;
+    color: #999;
 }
+
+
 /* Misc */
+
 .clear {
-    clear:both;
+    clear: both;
 }
+
 .successful-action {
     color: #008800;
     margin-top: 1em;
 }
+
+
 /* CSS Document */
