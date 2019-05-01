@@ -13,3 +13,7 @@ filetypes.xml
 .settings/
 .vscode/
 *.code-workspace
+device_code/*
+!device_code/.gitkeep
+images/*
+!images/.gitkeep
