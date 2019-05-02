@@ -64,10 +64,6 @@ function selectTypeFunction() {
         listItem.appendChild(inputButtonOk);
         ul.appendChild(listItem);
 
-        // inputButtonMinus.setAttribute('disabled', 'true');
-        // inputButtonPlus.setAttribute('disabled', 'true');
-        // inputButtonOk.setAttribute('disabled', 'true');
-
         for (var i = 0; i < itemsList.length; i++) {
             var li = document.createElement("li");
             var textarea = document.createElement("textarea");

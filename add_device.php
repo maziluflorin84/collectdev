@@ -6,7 +6,7 @@ include 'includes/overall/header.php';
 
 $ext = "";
 if (empty($_POST) === false) {
-    $required_fields = array('devName', 'devtype');
+    $required_fields = array('devName', 'devtype', 'url', 'image');
     foreach ($_POST as $key => $value) {
         if (empty($value) && in_array($key, $required_fields) === true) {
             $errors[] = 'Fields marked with an asterisk are required';
@@ -35,14 +35,31 @@ if (empty($_POST) === false && empty($errors) === true) {
     $image_name = md5(time()) . "." . $ext;
     $image_tmp_name = $_FILES['image']['tmp_name'];
     $image_destination = 'images/' . $image_name;
-
     move_uploaded_file($image_tmp_name, $image_destination);
+
+    $myJSON = null;
+    $num_of_pins = $_POST['numOfPins'];
+    if ($num_of_pins > 0) {
+        $objJSON = array();
+        $item_name = "name";
+        $item_value = "value";
+        for ($i = 1; $i <= $num_of_pins; $i++) {
+            $objJSON += array(
+                $i => array(
+                    $item_name => $_POST['pin-field-' . $i],
+                    $item_value => ""
+                )
+            );
+        }
+        $myJSON = json_encode($objJSON);
+    }
 
     $device_data = array(
         'name' => $_POST['devName'],
         'type' => $_POST['devType'],
         'url' => $_POST['url'],
-        'image' => $image_name
+        'image' => $image_name,
+        'pins' => $myJSON
     );
     $inserted_id = insert_device($device_data);
     if ($inserted_id != 0) {
@@ -77,13 +94,9 @@ if (empty($errors) === false) {
             </li>
             <li>Device name*:<br> <input type="text" name="devName">
             </li>
-            <li>Device URL:<br> <input type="text" name="url">
+            <li>Device URL*:<br> <input type="text" name="url">
             </li>
-            <!-- <li>Pins needed: <input type="number" name="numOfPins" id="numOfPins" min="0" max="10" value="0" style="width: 1.5em;" readonly="true">
-                <input type="button" value="-" onclick="incDecValue('numOfPins', '-')"><input type="button" value="+" onclick="incDecValue('numOfPins', '+')">
-                <input type="button" value="Ok" onclick="drawPinFields('numOfPins', 'formListId')">
-            </li> -->
-            <li>Device image:<br> <input type="file" name="image">
+            <li>Device image*:<br> <input type="file" name="image">
             </li>
         </ul>
         <button type="submit" id="devSubmit" name="submit" disabled="disabled">Submit</button>
