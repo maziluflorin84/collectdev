@@ -12,6 +12,10 @@ h2 {
     font-weight: normal;
 }
 
+table {
+    border: 0;
+}
+
 p {
     padding: 0;
     margin: 0 0 10px 0;
@@ -33,6 +37,10 @@ ul li input[type="email"],
 ul li input[type="file"],
 ul li select {
     width: 250px;
+}
+
+.wifiForm {
+    margin: 0;
 }
 
 
@@ -109,6 +117,33 @@ footer {
 
 .widget .inner {
     margin: 0 10px;
+}
+
+.rTable {
+    display: table;
+}
+
+.rTableRow {
+    display: table-row;
+}
+
+.rTableCell {
+    display: table-cell;
+    padding: 5px 10px;
+}
+
+.rTableHead {
+    display: table-cell;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+.rTableCellSpacing {
+    padding: 5px 5px;
+}
+
+.newConfigFieldset {
+    margin: 0 0 10px 0;
 }
 
 

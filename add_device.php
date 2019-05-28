@@ -61,6 +61,7 @@ if (empty($_POST) === false && empty($errors) === true) {
         'image' => $image_name,
         'pins' => $myJSON
     );
+    
     $inserted_id = insert_device($device_data);
     if ($inserted_id != 0) {
         $template_paths = "device_templates/device_code/";

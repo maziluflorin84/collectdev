@@ -23,7 +23,7 @@ if (logged_in()) {
 </script>
 <h1>My Configurations</h1>
 <section>
-    <p>Here will be all of the user's configurations</p>
+    <p>Create a new configuration by clicking on thing button <button onclick="newConfiguration()">New</button></p>
 </section>
 <section>
     <form name="configurationForm">
@@ -40,7 +40,6 @@ if (logged_in()) {
             }
             ?>
         </fieldset>
-        <button onclick="newConfiguration()">New</button>
         <button id="editConfig" onclick="editConfiguration()" disabled="disabled">Edit</button>
         <button id="delConfig" onclick="deleteConfiguration()" disabled="disabled">Delete</button>
     </form>

@@ -9,6 +9,38 @@ function newConfiguration() {
     window.location = 'new_config.php';
 }
 
+function selectInputDevice() {
+    var inputDeviceSelector = document.getElementById("inputDevice");
+    var sensorId = document.getElementById("sensorId");
+    var sensorSpan = document.createElement("span");
+
+    while (sensorId.firstChild) {
+        sensorId.removeChild(sensorId.firstChild);
+    }
+
+    if (inputDeviceSelector.value != "empty") {
+        sensorSpan.setAttribute('id', 'sensorName');
+        sensorSpan.appendChild(document.createTextNode(inputDeviceSelector.value));
+        sensorId.appendChild(sensorSpan);
+    }
+}
+
+function selectOutputDevice() {
+    var outputDeviceSelector = document.getElementById("outputDevice");
+    var actuatorId = document.getElementById("actuatorId");
+    var actuatorSpan = document.createElement("span");
+
+    while (actuatorId.firstChild) {
+        actuatorId.removeChild(actuatorId.firstChild);
+    }
+
+    if (outputDeviceSelector.value != "empty") {
+        actuatorSpan.setAttribute('id', 'actuatorName');
+        actuatorSpan.appendChild(document.createTextNode(outputDeviceSelector.value));
+        actuatorId.appendChild(actuatorSpan);
+    }
+}
+
 function selectTypeFunction() {
     var checkInsertPins = document.getElementById("insertButton");
     var checkLibraries = document.getElementById("libraryItem");
