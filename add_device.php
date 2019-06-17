@@ -37,29 +37,29 @@ if (empty($_POST) === false && empty($errors) === true) {
     $image_destination = 'images/' . $image_name;
     move_uploaded_file($image_tmp_name, $image_destination);
 
-    $myJSON = null;
-    $num_of_pins = $_POST['numOfPins'];
-    if ($num_of_pins > 0) {
-        $objJSON = array();
-        $item_name = "name";
-        $item_value = "value";
-        for ($i = 1; $i <= $num_of_pins; $i++) {
-            $objJSON += array(
-                $i => array(
-                    $item_name => $_POST['pin-field-' . $i],
-                    $item_value => ""
-                )
-            );
-        }
-        $myJSON = json_encode($objJSON);
-    }
+    // $myJSON = null;
+    // $num_of_pins = $_POST['numOfPins'];
+    // if ($num_of_pins > 0) {
+    //     $objJSON = array();
+    //     $item_name = "name";
+    //     $item_value = "value";
+    //     for ($i = 1; $i <= $num_of_pins; $i++) {
+    //         $objJSON += array(
+    //             $i => array(
+    //                 $item_name => $_POST['pin-field-' . $i],
+    //                 $item_value => ""
+    //             )
+    //         );
+    //     }
+    //     $myJSON = json_encode($objJSON);
+    // }
 
     $device_data = array(
         'name' => $_POST['devName'],
         'type' => $_POST['devType'],
         'url' => $_POST['url'],
-        'image' => $image_name,
-        'pins' => $myJSON
+        'image' => $image_name
+        // 'pins' => $myJSON
     );
     
     $inserted_id = insert_device($device_data);
@@ -69,6 +69,7 @@ if (empty($_POST) === false && empty($errors) === true) {
         create_device_code("variableCode", $template_paths, $inserted_id);
         create_device_code("setupCode", $template_paths, $inserted_id);
         create_device_code("loopCode", $template_paths, $inserted_id);
+        create_device_code("descriptionText", $template_paths, $inserted_id);
 
         header('Location: add_device.php?success');
     }

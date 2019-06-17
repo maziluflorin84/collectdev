@@ -76,10 +76,38 @@ function create_device_code($type, $path, $index) {
             case "loopCode":
                 $field = "loop_code";
                 break;
+            case "descriptionText":
+                $field = "description_text";
+                break;
         }
         $updating = '`' . $field . '` = \'' . $index . "_" . $type . ".txt" . '\'';
         $stmt = $db->prepare("UPDATE `devices` SET $updating WHERE `ID` = ?");
         $stmt->bind_param('i', $index);
         $stmt->execute();
     }
+}
+
+function get_device($type) {
+    global $db;
+    $data = array();
+    $stmt = $db->prepare("SELECT * FROM `devices` WHERE `type` = ? ");
+    $stmt->bind_param("s", $type);
+    $stmt->execute();
+    $stmt->bind_result($ID, $name, $devType, $libraryCode, $variableCode, $setupCode, $loopCode, $url, $image, $descriptionText);
+    while ($row = $stmt->fetch()) {
+        $dataRow = [];
+        $dataRow += ["ID" => $ID];
+        $dataRow += ["name" => $name];
+        $dataRow += ["type" => $devType];
+        $dataRow += ["library_code" => $libraryCode];
+        $dataRow += ["variable_code" => $variableCode];
+        $dataRow += ["setup_code" => $setupCode];
+        $dataRow += ["loop_code" => $loopCode];
+        $dataRow += ["url" => $url];
+        $dataRow += ["image" => $image];
+        $dataRow += ["description_text" => $descriptionText];
+        $data[] = $dataRow;
+    }
+    return $data;
+
 }

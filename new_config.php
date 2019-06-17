@@ -3,6 +3,10 @@ include 'main_functions/init.php';
 include 'includes/overall/header.php';
 
 if (logged_in()) {
+    $arduinoData = get_device("Arduino");
+    $wifiData = get_device("Wifi");
+    $sensorData = get_device("Sensor");
+    $actuatorData = get_device("Actuator");
     ?>
 
 <h1>New Configuration</h1>
@@ -22,30 +26,56 @@ if (logged_in()) {
                     </li>
                 </ul>
             </fieldset>
-            <fieldset>
+            <fieldset class="newConfigFieldset">
                 <legend>Select devices</legend>
                 <ul>
                     <li>
-                        Sensor:<br/>
-                        <select name="inputDevice" id="inputDevice" onchange="selectInputDevice()">
+                        Arduino:<br/>
+                        <select name="arduinoDevice" id="arduinoDevice" onchange="selectArduinoDevice()">
                             <option value="empty"></option>
-                            <option value="sensor1">Sensor 1</option>
-                            <option value="sensor22">Sensor 2</option>
-                            <option value="sensor333">Sensor 3</option>
+                            <?php
+                            foreach ($arduinoData as &$value) {
+                                echo "<option value=\"" . $value["name"] . "\" id=\"Arduino_" . $value["ID"] . "\">" . $value["name"] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </li>
+                    <li>
+                        Wifi:<br/>
+                        <select name="wifiDevice" id="wifiDevice" onchange="selectWifiDevice()" disabled>
+                            <option value="empty"></option>
+                            <?php
+                            foreach ($wifiData as &$value) {
+                                echo "<option value=\"" . $value["name"] . "\" id=\"Wifi_" . $value["ID"] . "\">" . $value["name"] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </li>
+                    <li>
+                        Sensor:<br/>
+                        <select name="sensorDevice" id="sensorDevice" onchange="selectsensorDevice()" disabled>
+                            <option value="empty"></option>
+                            <?php
+                            foreach ($sensorData as &$value) {
+                                echo "<option value=\"" . $value["name"] . "\" id=\"Sensor_" . $value["ID"] . "\">" . $value["name"] . "</option>";
+                            }
+                            ?>
                         </select>
                     </li>
                     <li>
                         Actuator:<br/>
-                        <select name="outputDevice" id="outputDevice" onchange="selectOutputDevice()">
+                        <select name="actuatorDevice" id="actuatorDevice" onchange="selectactuatorDevice()" disabled>
                             <option value="empty"></option>
-                            <option value="actuator1">Actuator 1</option>
-                            <option value="actuator22">Actuator 2</option>
-                            <option value="actuator333">Actuator 3</option>
+                            <?php
+                            foreach ($actuatorData as &$value) {
+                                echo "<option value=\"" . $value["name"] . "\" id=\"Actuator_" . $value["ID"] . "\">" . $value["name"] . "</option>";
+                            }
+                            ?>
                         </select>
                     </li>
                 </ul>
             </fieldset>
-            <fieldset>
+            <fieldset class="newConfigFieldset">
                 <legend>Configuration setup</legend>
                 <div class="rTable">
                     <div class="rTableRow" align="center">
