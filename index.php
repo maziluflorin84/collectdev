@@ -27,7 +27,7 @@ if (logged_in()) {
 </section>
 <section>
     <form name="configurationForm">
-        <fieldset>
+        <fieldset class="newConfigFieldset">
             <legend>Configurations</legend>
             <?php
             if ($listOfConfigurations) {

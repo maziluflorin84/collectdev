@@ -93,12 +93,16 @@ function get_device($type) {
     $stmt = $db->prepare("SELECT * FROM `devices` WHERE `type` = ? ");
     $stmt->bind_param("s", $type);
     $stmt->execute();
-    $stmt->bind_result($ID, $name, $devType, $libraryCode, $variableCode, $setupCode, $loopCode, $url, $image, $descriptionText);
+    $stmt->bind_result($ID, $name, $devType, $valueTitle, $valueOne, $valueOrTo, $valueTwo, $libraryCode, $variableCode, $setupCode, $loopCode, $url, $image, $descriptionText);
     while ($row = $stmt->fetch()) {
         $dataRow = [];
         $dataRow += ["ID" => $ID];
         $dataRow += ["name" => $name];
         $dataRow += ["type" => $devType];
+        $dataRow += ["type" => $valueTitle];
+        $dataRow += ["type" => $valueOne];
+        $dataRow += ["type" => $valueOrTo];
+        $dataRow += ["type" => $valueTwo];
         $dataRow += ["library_code" => $libraryCode];
         $dataRow += ["variable_code" => $variableCode];
         $dataRow += ["setup_code" => $setupCode];
@@ -109,5 +113,4 @@ function get_device($type) {
         $data[] = $dataRow;
     }
     return $data;
-
 }

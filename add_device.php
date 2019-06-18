@@ -57,9 +57,12 @@ if (empty($_POST) === false && empty($errors) === true) {
     $device_data = array(
         'name' => $_POST['devName'],
         'type' => $_POST['devType'],
+        'value_title' => (isset($_POST['valueTitle']) === true && empty($_POST['valueTitle']) === false) ? $_POST['valueTitle'] : null,
+        'value_one' => (isset($_POST['valueOne']) === true && empty($_POST['valueOne']) === false) ? $_POST['valueOne'] : null,
+        'value_or_to' => (isset($_POST['selectOrTo']) === true && empty($_POST['selectOrTo']) === false) ? $_POST['selectOrTo'] : null,
+        'value_two' => (isset($_POST['valueTwo']) === true && empty($_POST['valueTwo']) === false) ? $_POST['valueTwo'] : null,
         'url' => $_POST['url'],
         'image' => $image_name
-        // 'pins' => $myJSON
     );
     
     $inserted_id = insert_device($device_data);
@@ -86,8 +89,9 @@ if (empty($errors) === false) {
 <section>
     <form action="" method="post" enctype="multipart/form-data">
         <ul id="formListId">
-            <li>Device type*:<br> <select id="devType" onchange="selectTypeFunction()" name="devType">
-                    <option value="Empty"></option>
+            <li>Device type*:<br> 
+                <select id="devType" onchange="selectTypeFunction()" name="devType">
+                    <option value="Empty" disabled selected></option>
                     <option value="Arduino">Arduino</option>
                     <option value="Wifi">Wifi Module</option>
                     <option value="Sensor">Sensor</option>
