@@ -99,10 +99,10 @@ function get_device($type) {
         $dataRow += ["ID" => $ID];
         $dataRow += ["name" => $name];
         $dataRow += ["type" => $devType];
-        $dataRow += ["type" => $valueTitle];
-        $dataRow += ["type" => $valueOne];
-        $dataRow += ["type" => $valueOrTo];
-        $dataRow += ["type" => $valueTwo];
+        $dataRow += ["value_title" => $valueTitle];
+        $dataRow += ["value_one" => $valueOne];
+        $dataRow += ["value_or_to" => $valueOrTo];
+        $dataRow += ["value_two" => $valueTwo];
         $dataRow += ["library_code" => $libraryCode];
         $dataRow += ["variable_code" => $variableCode];
         $dataRow += ["setup_code" => $setupCode];

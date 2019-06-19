@@ -13,7 +13,7 @@ function selectArduinoDevice() {
     var arduinoDeviceSelector = document.getElementById('arduinoDevice');
     var wifiDeviceSelector = document.getElementById('wifiDevice');
     var sensorDeviceSelector = document.getElementById('sensorDevice');
-    var actuatorDeviceSelector = document.getElementById('actuatorDevice');
+    var actuatorDeviceSelector = document.getElementById('actuator-device');
 
     if (arduinoDeviceSelector.value != 'empty') {
         wifiDeviceSelector.disabled = false;
@@ -27,7 +27,7 @@ function selectArduinoDevice() {
 function selectWifiDevice() {
     var wifiDeviceSelector = document.getElementById('wifiDevice');
     var sensorDeviceSelector = document.getElementById('sensorDevice');
-    var actuatorDeviceSelector = document.getElementById('actuatorDevice');
+    var actuatorDeviceSelector = document.getElementById('actuator-device');
 
     if (wifiDeviceSelector.value != 'empty') {
         sensorDeviceSelector.disabled = false;
@@ -51,33 +51,219 @@ function deselectDevice(deviceSelector) {
 
 function selectsensorDevice() {
     var sensorDeviceSelector = document.getElementById('sensorDevice');
-    var sensorId = document.getElementById('sensorId');
-    var sensorSpan = document.createElement('span');
+    var sensorId = document.getElementById('if-sensor-id');
+    var inputField = document.getElementById('if-input-field');
+    var ifCondition = document.getElementById('if-condition');
 
     while (sensorId.firstChild) {
         sensorId.removeChild(sensorId.firstChild);
     }
 
+    while (inputField.firstChild) {
+        inputField.removeChild(inputField.firstChild);
+    }
+
+    while (ifCondition.firstChild) {
+        ifCondition.removeChild(ifCondition.firstChild);
+    }
+
     if (sensorDeviceSelector.value != 'empty') {
-        sensorSpan.setAttribute('id', 'sensorName');
+        var sensorSpan = document.createElement('span');
+        sensorSpan.setAttribute('id', 'sensor-name');
         sensorSpan.appendChild(document.createTextNode(sensorDeviceSelector.value));
         sensorId.appendChild(sensorSpan);
+
+        var optionEmpty = document.createElement('option');
+        optionEmpty.setAttribute('value', 'empty');
+        optionEmpty.appendChild(document.createTextNode(''));
+        var optionEqual = document.createElement('option');
+        optionEqual.setAttribute('value', 'equal');
+        optionEqual.appendChild(document.createTextNode('=='));
+        var optionDifferent = document.createElement('option');
+        optionDifferent.setAttribute('value', 'different');
+        optionDifferent.appendChild(document.createTextNode('!='));
+        var optionGreater = document.createElement('option');
+        optionGreater.setAttribute('value', 'greater');
+        optionGreater.appendChild(document.createTextNode('>'));
+        var optionGreaterOrEqual = document.createElement('option');
+        optionGreaterOrEqual.setAttribute('value', 'greaterOrEqual');
+        optionGreaterOrEqual.appendChild(document.createTextNode('>='));
+        var optionLess = document.createElement('option');
+        optionLess.setAttribute('value', 'less');
+        optionLess.appendChild(document.createTextNode('<'));
+        var optionLessOrEqual = document.createElement('option');
+        optionLessOrEqual.setAttribute('value', 'lessOrEqual');
+        optionLessOrEqual.appendChild(document.createTextNode('<='));
+        var selectCondition = document.createElement('select');
+        selectCondition.setAttribute('id', 'condition-device');
+        selectCondition.setAttribute('name', 'condition-device');
+        selectCondition.setAttribute('style', 'width: max-content;');
+        selectCondition.appendChild(optionEmpty);
+        selectCondition.appendChild(optionEqual);
+        selectCondition.appendChild(optionDifferent);
+        selectCondition.appendChild(optionGreater);
+        selectCondition.appendChild(optionGreaterOrEqual);
+        selectCondition.appendChild(optionLess);
+        selectCondition.appendChild(optionLessOrEqual);
+        ifCondition.appendChild(selectCondition);
+
+        var valueOne = sensorDeviceSelector.options[sensorDeviceSelector.selectedIndex].getAttribute('value-one');
+        var valueOrTo = sensorDeviceSelector.options[sensorDeviceSelector.selectedIndex].getAttribute('value-or-to');
+        var valueTwo = sensorDeviceSelector.options[sensorDeviceSelector.selectedIndex].getAttribute('value-two');
+        var inputSpan = document.createElement('span');
+        inputSpan.setAttribute('id', 'span-input-value');
+        if (valueOrTo == 'or') {
+            var optionOne = document.createElement('option');
+            optionOne.setAttribute('value', valueOne)
+            optionOne.appendChild(document.createTextNode(valueOne));
+
+            var optionTwo = document.createElement('option');
+            optionTwo.setAttribute('value', valueTwo)
+            optionTwo.appendChild(document.createTextNode(valueTwo));
+
+            var inputValue = document.createElement('select');
+            inputValue.setAttribute('id', 'input-value');
+            inputValue.setAttribute('name', 'input-value');
+            inputValue.setAttribute('style', 'width: max-content;');
+            inputValue.appendChild(optionOne);
+            inputValue.appendChild(optionTwo);
+
+            inputSpan.appendChild(inputValue);
+        } else if (valueOrTo == 'to') {
+            var inputValue = document.createElement('input');
+            inputValue.setAttribute('type', 'number');
+            inputValue.setAttribute('id', 'input-value');
+            inputValue.setAttribute('name', 'input-value');
+            inputValue.setAttribute('size', 3);
+            inputValue.setAttribute('value', parseInt(valueOne, 10));
+            inputValue.setAttribute('min', parseInt(valueOne, 10));
+            inputValue.setAttribute('max', parseInt(valueTwo, 10));
+            inputSpan.appendChild(inputValue);
+        } else {
+            var inputValue = document.createElement('input');
+            inputValue.setAttribute('type', 'text');
+            inputValue.setAttribute('id', 'input-value');
+            inputValue.setAttribute('name', 'input-value');
+            inputValue.setAttribute('size', 3);
+            inputSpan.appendChild(inputValue);
+        }
+        inputField.appendChild(inputSpan);
     }
 }
 
 function selectactuatorDevice() {
-    var actuatorDeviceSelector = document.getElementById('actuatorDevice');
-    var actuatorId = document.getElementById('actuatorId');
-    var actuatorSpan = document.createElement('span');
+    var actuatorDeviceSelector = document.getElementById('actuator-device');
+    var ifActuatorId = document.getElementById('if-actuator-id');
+    var elseActuatorId = document.getElementById('else-actuator-id');
+    var ifOutputField = document.getElementById('if-output-field');
+    var elseOutputField = document.getElementById('else-output-field');
 
-    while (actuatorId.firstChild) {
-        actuatorId.removeChild(actuatorId.firstChild);
+    while (ifActuatorId.firstChild) {
+        ifActuatorId.removeChild(ifActuatorId.firstChild);
+    }
+
+    while (elseActuatorId.firstChild) {
+        elseActuatorId.removeChild(elseActuatorId.firstChild);
+    }
+
+    while (ifOutputField.firstChild) {
+        ifOutputField.removeChild(ifOutputField.firstChild);
+    }
+
+    while (elseOutputField.firstChild) {
+        elseOutputField.removeChild(elseOutputField.firstChild);
     }
 
     if (actuatorDeviceSelector.value != 'empty') {
-        actuatorSpan.setAttribute('id', 'actuatorName');
-        actuatorSpan.appendChild(document.createTextNode(actuatorDeviceSelector.value));
-        actuatorId.appendChild(actuatorSpan);
+        var ifActuatorSpan = document.createElement('span');
+        ifActuatorSpan.setAttribute('id', 'if-actuator-name');
+        ifActuatorSpan.appendChild(document.createTextNode(actuatorDeviceSelector.value));
+        ifActuatorId.appendChild(ifActuatorSpan);
+
+        var elseActuatorSpan = document.createElement('span');
+        elseActuatorSpan.setAttribute('id', 'else-actuator-name');
+        elseActuatorSpan.appendChild(document.createTextNode(actuatorDeviceSelector.value));
+        elseActuatorId.appendChild(elseActuatorSpan);
+
+        var valueOne = actuatorDeviceSelector.options[actuatorDeviceSelector.selectedIndex].getAttribute('value-one');
+        var valueOrTo = actuatorDeviceSelector.options[actuatorDeviceSelector.selectedIndex].getAttribute('value-or-to');
+        var valueTwo = actuatorDeviceSelector.options[actuatorDeviceSelector.selectedIndex].getAttribute('value-two');
+        var ifOutputSpan = document.createElement('span');
+        ifOutputSpan.setAttribute('id', 'if-span-output-value');
+        var elseOutputSpan = document.createElement('span');
+        elseOutputSpan.setAttribute('id', 'else-span-output-value');
+        if (valueOrTo == 'or') {
+            var ifOptionOne = document.createElement('option');
+            ifOptionOne.setAttribute('value', valueOne)
+            ifOptionOne.appendChild(document.createTextNode(valueOne));
+
+            var elseOptionOne = document.createElement('option');
+            elseOptionOne.setAttribute('value', valueOne)
+            elseOptionOne.appendChild(document.createTextNode(valueOne));
+
+            var ifOptionTwo = document.createElement('option');
+            ifOptionTwo.setAttribute('value', valueTwo)
+            ifOptionTwo.appendChild(document.createTextNode(valueTwo));
+
+            var elseOptionTwo = document.createElement('option');
+            elseOptionTwo.setAttribute('value', valueTwo)
+            elseOptionTwo.appendChild(document.createTextNode(valueTwo));
+
+            var ifOutputValue = document.createElement('select');
+            ifOutputValue.setAttribute('id', 'if-output-value');
+            ifOutputValue.setAttribute('name', 'if-output-value');
+            ifOutputValue.setAttribute('style', 'width: max-content;');
+            ifOutputValue.appendChild(ifOptionOne);
+            ifOutputValue.appendChild(ifOptionTwo);
+
+            var elseOutputValue = document.createElement('select');
+            elseOutputValue.setAttribute('id', 'else-output-value');
+            elseOutputValue.setAttribute('name', 'else-output-value');
+            elseOutputValue.setAttribute('style', 'width: max-content;');
+            elseOutputValue.appendChild(elseOptionOne);
+            elseOutputValue.appendChild(elseOptionTwo);
+
+            ifOutputSpan.appendChild(ifOutputValue);
+
+            elseOutputSpan.appendChild(elseOutputValue);
+        } else if (valueOrTo == 'to') {
+            var ifOutputValue = document.createElement('input');
+            ifOutputValue.setAttribute('type', 'number');
+            ifOutputValue.setAttribute('id', 'if-output-value');
+            ifOutputValue.setAttribute('name', 'if-output-value');
+            ifOutputValue.setAttribute('size', 3);
+            ifOutputValue.setAttribute('value', parseInt(valueOne, 10));
+            ifOutputValue.setAttribute('min', parseInt(valueOne, 10));
+            ifOutputValue.setAttribute('max', parseInt(valueTwo, 10));
+            ifOutputSpan.appendChild(ifOutputValue);
+
+            var elseOutputValue = document.createElement('input');
+            elseOutputValue.setAttribute('type', 'number');
+            elseOutputValue.setAttribute('id', 'else-output-value');
+            elseOutputValue.setAttribute('name', 'else-output-value');
+            elseOutputValue.setAttribute('size', 3);
+            elseOutputValue.setAttribute('value', parseInt(valueOne, 10));
+            elseOutputValue.setAttribute('min', parseInt(valueOne, 10));
+            elseOutputValue.setAttribute('max', parseInt(valueTwo, 10));
+            elseOutputSpan.appendChild(elseOutputValue);
+        } else {
+            var ifOutputValue = document.createElement('input');
+            ifOutputValue.setAttribute('type', 'text');
+            ifOutputValue.setAttribute('id', 'if-output-value');
+            ifOutputValue.setAttribute('name', 'if-output-value');
+            ifOutputValue.setAttribute('size', 3);
+            ifOutputSpan.appendChild(ifOutputValue);
+
+            var elseOutputValue = document.createElement('input');
+            elseOutputValue.setAttribute('type', 'text');
+            elseOutputValue.setAttribute('id', 'if-output-value');
+            elseOutputValue.setAttribute('name', 'if-output-value');
+            elseOutputValue.setAttribute('size', 3);
+            elseOutputSpan.appendChild(elseOutputValue);
+        }
+        ifOutputField.appendChild(ifOutputSpan);
+
+        elseOutputField.appendChild(elseOutputSpan);
     }
 }
 
@@ -108,16 +294,6 @@ function selectTypeFunction() {
     } else if (checkSelectValue == 'Wifi') {
         setOtherThanArduino(ul);
     }
-
-    // if (checkSelectValue != 'Empty' && checkSelectValue != 'Arduino' && checkLibraries == null) {
-    //     setOtherThanArduino(ul);
-    // } else if ((checkSelectValue == 'Empty' || checkSelectValue == 'Arduino') && checkLibraries != null) {
-    //     checkLibraries.parentNode.removeChild(checkLibraries);
-    //     checkVariables.parentNode.removeChild(checkVariables);
-    //     checkSetup.parentNode.removeChild(checkSetup);
-    //     checkLoop.parentNode.removeChild(checkLoop);
-    //     checkDescription.parentNode.removeChild(checkDescription);
-    // }
 
     var submitButton = document.getElementById('devSubmit');
     if (checkSelectValue == 'Empty') {

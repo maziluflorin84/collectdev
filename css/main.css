@@ -39,7 +39,7 @@ ul li select {
     width: 250px;
 }
 
-.wifiForm {
+.config-info-form {
     margin: 0;
 }
 
@@ -130,6 +130,8 @@ footer {
 .rTableCell {
     display: table-cell;
     padding: 5px 10px;
+    font-family: "Courier New";
+    vertical-align: middle;
 }
 
 .rTableHead {

@@ -14,8 +14,17 @@ if (logged_in()) {
     <form name="newConfigurationForm">
         <div style="width: 600px;">
             <fieldset class="newConfigFieldset">
+                <legend>Configuration Info</legend>
+                <ul id="info" class="config-info-form">
+                    <li>
+                        Configuration name:<br/>
+                        <input type="text" name="config-name" id="config-name">
+                    </li>
+                </ul>
+            </fieldset>
+            <fieldset class="newConfigFieldset">
                 <legend>WiFi connection</legend>
-                <ul id="wifi" class="wifiForm">
+                <ul id="wifi" class="config-info-form">
                     <li>
                         SSID:<br/>
                         <input type="text" name="wifiSSID" id="wifiSSID">
@@ -57,18 +66,30 @@ if (logged_in()) {
                             <option value="empty"></option>
                             <?php
                             foreach ($sensorData as &$value) {
-                                echo "<option value=\"" . $value["name"] . "\" id=\"Sensor_" . $value["ID"] . "\">" . $value["name"] . "</option>";
+                                echo "<option value=\"".$value["name"]."\" ";
+                                        echo "id=\"Sensor_".$value["ID"]."\" ";
+                                        echo "value-one=\"".$value["value_one"]."\" ";
+                                        echo "value-or-to=\"".$value["value_or_to"]."\" ";
+                                        echo "value-two=\"".$value["value_two"]."\"> ";
+                                    echo $value["name"];
+                                echo "</option>";
                             }
                             ?>
                         </select>
                     </li>
                     <li>
                         Actuator:<br/>
-                        <select name="actuatorDevice" id="actuatorDevice" onchange="selectactuatorDevice()" disabled>
+                        <select name="actuator-device" id="actuator-device" onchange="selectactuatorDevice()" disabled>
                             <option value="empty"></option>
                             <?php
                             foreach ($actuatorData as &$value) {
-                                echo "<option value=\"" . $value["name"] . "\" id=\"Actuator_" . $value["ID"] . "\">" . $value["name"] . "</option>";
+                                echo "<option value=\"".$value["name"]."\" ";
+                                        echo "id=\"Sensor_".$value["ID"]."\" ";
+                                        echo "value-one=\"".$value["value_one"]."\" ";
+                                        echo "value-or-to=\"".$value["value_or_to"]."\" ";
+                                        echo "value-two=\"".$value["value_two"]."\"> ";
+                                    echo $value["name"];
+                                echo "</option>";
                             }
                             ?>
                         </select>
@@ -88,27 +109,31 @@ if (logged_in()) {
                         <div class="rTableHead">Output Value</div>
                     </div>
                     <div class="rTableRow" align="center">
-                        <div class="rTableCell">If</div>
-                        <div class="rTableCell" id="sensorId"></div>
-                        <div class="rTableCell">
-                            <select name="conditionDevice" id="conditionDevice">
-                                <option value="empty"></option>
-                                <option value="equal">==</option>
-                                <option value="different">!=</option>
-                                <option value="greater">></option>
-                                <option value="greaterOrEqual">>=</option>
-                                <option value="less"><</option>
-                                <option value="lessOrEqual"><=</option>
-                            </select>
-                        </div>
-                        <div class="rTableCell">
-                            <input type="text" name="condValue" id="condValue" size="3">
-                        </div>
+                        <div class="rTableCell" align="left">if</div>
+                        <div class="rTableCell" id="if-sensor-id"></div>
+                        <div class="rTableCell" id="if-condition"></div>
+                        <div class="rTableCell" id="if-input-field"></div>
                         <div class="rTableCell">then </div>
-                        <div class="rTableCell" id="actuatorId"></div>
-                        <div class="rTableCell">
-                            <input type="text" name="outputValue" id="outputValue" size="3">
-                        </div>
+                        <div class="rTableCell" id="if-actuator-id"></div>
+                        <div class="rTableCell" id="if-output-field"></div>
+                    </div>
+                    <div class="rTableRow" align="center">
+                        <div class="rTableCell" align="left">else</div>
+                        <div class="rTableCell" id="else-sensor-id"></div>
+                        <div class="rTableCell"></div>
+                        <div class="rTableCell" id="else-input-field"></div>
+                        <div class="rTableCell"></div>
+                        <div class="rTableCell" id="else-actuator-id"></div>
+                        <div class="rTableCell" id="else-output-field"></div>
+                    </div>
+                    <div class="rTableRow" align="center">
+                        <div class="rTableCell" align="left">endif</div>
+                        <div class="rTableCell" id="endif-sensor-id"></div>
+                        <div class="rTableCell"></div>
+                        <div class="rTableCell" id="endif-input-field"></div>
+                        <div class="rTableCell"></div>
+                        <div class="rTableCell" id="endif-actuator-id"></div>
+                        <div class="rTableCell" id="endif-output-field"></div>
                     </div>
                 </div>
             </fieldset>
