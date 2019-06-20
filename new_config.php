@@ -3,10 +3,10 @@ include 'main_functions/init.php';
 include 'includes/overall/header.php';
 
 if (logged_in()) {
-    $arduinoData = get_device("Arduino");
-    $wifiData = get_device("Wifi");
-    $sensorData = get_device("Sensor");
-    $actuatorData = get_device("Actuator");
+    $arduinoData = get_devices("Arduino");
+    $wifiData = get_devices("Wifi");
+    $sensorData = get_devices("Sensor");
+    $actuatorData = get_devices("Actuator");
 
     if (empty($_POST) === false) {
         $configurationData = array(
@@ -37,7 +37,7 @@ if (logged_in()) {
 <section>
     <form action="" method="post" enctype="multipart/form-data">
         <div style="width: 600px;">
-            <fieldset class="newConfigFieldset">
+            <fieldset class="config-fieldset">
                 <legend>Configuration Info</legend>
                 <ul id="info" class="config-info-form">
                     <li>
@@ -46,7 +46,7 @@ if (logged_in()) {
                     </li>
                 </ul>
             </fieldset>
-            <fieldset class="newConfigFieldset">
+            <fieldset class="config-fieldset">
                 <legend>WiFi connection</legend>
                 <ul id="wifi" class="config-info-form">
                     <li>
@@ -59,7 +59,7 @@ if (logged_in()) {
                     </li>
                 </ul>
             </fieldset>
-            <fieldset class="newConfigFieldset">
+            <fieldset class="config-fieldset">
                 <legend>Select devices</legend>
                 <ul>
                     <li>
@@ -87,12 +87,12 @@ if (logged_in()) {
                     <li>
                         Sensor:<br/>
                         <select name="sensor-device" id="sensor-device" onchange="selectsensorDevice()" disabled>
-                            <option value="0" value-name="empty"></option>
+                            <option value="empty"></option>
                             <?php
                             foreach ($sensorData as &$value) {
                                 echo "<option value=\"".$value["ID"]."\" ";
-                                        echo "value-name=\"".$value["name"]."\" ";
                                         echo "id=\"Sensor_".$value["ID"]."\" ";
+                                        echo "value-name=\"".$value["name"]."\"";
                                         echo "value-one=\"".$value["value_one"]."\" ";
                                         echo "value-or-to=\"".$value["value_or_to"]."\" ";
                                         echo "value-two=\"".$value["value_two"]."\"> ";
@@ -105,12 +105,12 @@ if (logged_in()) {
                     <li>
                         Actuator:<br/>
                         <select name="actuator-device" id="actuator-device" onchange="selectactuatorDevice()" disabled>
-                            <option value="0" value-name="empty"></option>
+                            <option value="empty"></option>
                             <?php
                             foreach ($actuatorData as &$value) {
                                 echo "<option value=\"".$value["ID"]."\" ";
-                                        echo "value-name=\"".$value["name"]."\"";
                                         echo "id=\"Sensor_".$value["ID"]."\" ";
+                                        echo "value-name=\"".$value["name"]."\"";
                                         echo "value-one=\"".$value["value_one"]."\" ";
                                         echo "value-or-to=\"".$value["value_or_to"]."\" ";
                                         echo "value-two=\"".$value["value_two"]."\"> ";
@@ -122,7 +122,7 @@ if (logged_in()) {
                     </li>
                 </ul>
             </fieldset>
-            <fieldset class="newConfigFieldset">
+            <fieldset class="config-fieldset">
                 <legend>Configuration setup</legend>
                 <div class="rTable">
                     <div class="rTableRow" align="center">
@@ -163,7 +163,7 @@ if (logged_in()) {
                     </div>
                 </div>
             </fieldset>
-            <button type="submit" id="configSubmit" name="configSubmit">Generate code</button>
+            <button type="submit" id="configSubmit" name="configSubmit">Save and Generate code</button>
         </div>
     </form>
 </section>

@@ -144,7 +144,7 @@ footer {
     padding: 5px 5px;
 }
 
-.newConfigFieldset {
+.config-fieldset {
     margin: 0 0 10px 0;
     border-width: 1px;
     border-style: solid;
@@ -250,6 +250,11 @@ footer {
 
 .successful-action {
     color: #008800;
+    margin-top: 1em;
+}
+
+.failed-action {
+    color: #FF0000;
     margin-top: 1em;
 }
 

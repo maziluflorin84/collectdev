@@ -3,22 +3,31 @@ include 'main_functions/init.php';
 include 'includes/overall/header.php';
 
 if (logged_in()) {
-    
-    $listOfConfigurations = array(1, 2, 3);
+    // if (empty($_POST) === false) {
+    //     if (delete_config($_POST['config'])) {
+    //         header('Location: index.php?success');
+    //     }
+    //     exit();
+    // }
+    // if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
+    //     echo '<p class="successful-action">Configurations has been deleted!</p>';
+    // }
+    if (isset($_GET['failed']) === true && empty($_GET['failed']) === true) {
+        echo '<p class="failed-action">Something went wrong!</p>';
+    }
+    $listOfConfigurations = get_configurations($user_data['ID']);
     ?>
     
 <script type="text/javascript">
     var currentValue = 0;
     function handleClick(myRadio) {
-//         alert('Old value: ' + currentValue);
-//         alert('New value: ' + myRadio.value);
-//         currentValue = myRadio.value;
-        if (document.getElementById('editConfig').disabled == true) {
-            document.getElementById('editConfig').disabled = false;
+        if (document.getElementById('configEdit').disabled == true) {
+            document.getElementById('configEdit').disabled = false;
         }
-        if (document.getElementById('delConfig').disabled == true) {
-            document.getElementById('delConfig').disabled = false;
-        }
+
+        // if (document.getElementById('configDelete').disabled == true) {
+        //     document.getElementById('configDelete').disabled = false;
+        // }
     }
 </script>
 <h1>My Configurations</h1>
@@ -26,22 +35,24 @@ if (logged_in()) {
     <p>Create a new configuration by clicking on thing button <button onclick="newConfiguration()">New</button></p>
 </section>
 <section>
-    <form name="configurationForm">
-        <fieldset class="newConfigFieldset">
+    <form action="edit_config.php" method="post" enctype="multipart/form-data">
+        <fieldset class="config-fieldset">
             <legend>Configurations</legend>
             <?php
             if ($listOfConfigurations) {
                 foreach ($listOfConfigurations as $configuration) {
-                    echo "<input type=\"radio\" id=\"configId". $configuration ."\" name=\"config\" value=\"". $configuration ."\" onclick=\"handleClick(this);\"> ";
-                    echo "<label for=\"configId". $configuration ."\">Configuration ". $configuration ."</label><br>";
+                    echo '<label>';
+                        echo '<input type="radio" id="'.$configuration['ID'].'" name="config" value="'.$configuration['ID'].'" onclick="handleClick(this);">';
+                        echo $configuration['title'];
+                    echo '</label><br>';
                 }
             } else {
                 echo "There are no configurations at the moment!";
             }
             ?>
         </fieldset>
-        <button id="editConfig" onclick="editConfiguration()" disabled="disabled">Edit</button>
-        <button id="delConfig" onclick="deleteConfiguration()" disabled="disabled">Delete</button>
+        <button type="submit" id="configEdit" name="configEdit" disabled="disabled">Edit</button>
+        <!-- <button type="submit" id="configDelete" name="configDelete" disabled="disabled">Delete</button> -->
     </form>
 </section>
 

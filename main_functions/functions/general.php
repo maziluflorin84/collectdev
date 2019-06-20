@@ -53,6 +53,17 @@ function insert_data($insertion_data, $table) {
     }
 }
 
+function delete_config($config_id) {
+    global $db;
+    $stmt = $db->prepare("DELETE FROM `configurations` WHERE `ID` = ? ");
+    $stmt->bind_param("i", $config_id);
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function create_device_code($type, $path, $index) {
     if (isset($_POST[$type]) === true && empty($_POST[$type]) === false) {
         global $db;
@@ -87,7 +98,7 @@ function create_device_code($type, $path, $index) {
     }
 }
 
-function get_device($type) {
+function get_devices($type) {
     global $db;
     $data = array();
     $stmt = $db->prepare("SELECT * FROM `devices` WHERE `type` = ? ");
@@ -113,4 +124,82 @@ function get_device($type) {
         $data[] = $dataRow;
     }
     return $data;
+}
+
+function get_configurations($userID) {
+    global $db;
+    $data = array();
+    $stmt = $db->prepare("SELECT * FROM `configurations` WHERE `user_id` = ? ORDER BY `ID` ASC");
+    $stmt->bind_param("s", $userID);
+    $stmt->execute();
+    $stmt->bind_result($ID, $title, $ssid, $pass, $userID, $sensorID, $sensorCondition, $sensorValue, $actuatorID, $actuatorValueIf, $actuatorValueElse);
+    while ($row = $stmt->fetch()) {
+        $dataRow = [];
+        $dataRow += ["ID" => $ID];
+        $dataRow += ["title" => $title];
+        $dataRow += ["ssid" => $ssid];
+        $dataRow += ["pass" => $pass];
+        $dataRow += ["user_id" => $userID];
+        $dataRow += ["sensor_id" => $sensorID];
+        $dataRow += ["sensor_condition" => $sensorCondition];
+        $dataRow += ["sensor_value" => $sensorValue];
+        $dataRow += ["actuator_id" => $actuatorID];
+        $dataRow += ["actuator_value_if" => $actuatorValueIf];
+        $dataRow += ["actuator_value_else" => $actuatorValueElse];
+        $data[] = $dataRow;
+    }
+    return $data;
+}
+
+function get_device($device_id) {
+    global $db;
+    $dataRow = [];
+    $stmt = $db->prepare("SELECT * FROM `devices` WHERE `ID` = ? ");
+    $stmt->bind_param("s", $device_id);
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($ID, $name, $devType, $valueTitle, $valueOne, $valueOrTo, $valueTwo, $libraryCode, $variableCode, $setupCode, $loopCode, $url, $image, $descriptionText);
+        $stmt->fetch();
+        $dataRow += ["ID" => $ID];
+        $dataRow += ["name" => $name];
+        $dataRow += ["type" => $devType];
+        $dataRow += ["value_title" => $valueTitle];
+        $dataRow += ["value_one" => $valueOne];
+        $dataRow += ["value_or_to" => $valueOrTo];
+        $dataRow += ["value_two" => $valueTwo];
+        $dataRow += ["library_code" => $libraryCode];
+        $dataRow += ["variable_code" => $variableCode];
+        $dataRow += ["setup_code" => $setupCode];
+        $dataRow += ["loop_code" => $loopCode];
+        $dataRow += ["url" => $url];
+        $dataRow += ["image" => $image];
+        $dataRow += ["description_text" => $descriptionText];
+    }
+    return $dataRow;
+}
+
+function get_configuration($config_id) {
+    global $db;
+    $dataRow = [];
+    $stmt = $db->prepare("SELECT * FROM `configurations` WHERE `ID` = ? ORDER BY `ID` ASC");
+    $stmt->bind_param("s", $config_id);
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($ID, $title, $ssid, $pass, $userID, $sensorID, $sensorCondition, $sensorValue, $actuatorID, $actuatorValueIf, $actuatorValueElse);
+        $stmt->fetch();
+        $dataRow += ["ID" => $ID];
+        $dataRow += ["title" => $title];
+        $dataRow += ["ssid" => $ssid];
+        $dataRow += ["pass" => $pass];
+        $dataRow += ["user_id" => $userID];
+        $dataRow += ["sensor_id" => $sensorID];
+        $dataRow += ["sensor_condition" => $sensorCondition];
+        $dataRow += ["sensor_value" => $sensorValue];
+        $dataRow += ["actuator_id" => $actuatorID];
+        $dataRow += ["actuator_value_if" => $actuatorValueIf];
+        $dataRow += ["actuator_value_else" => $actuatorValueElse];
+    }
+    return $dataRow;
 }

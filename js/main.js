@@ -9,6 +9,10 @@ function newConfiguration() {
     window.location = 'new_config.php';
 }
 
+function editConfiguration() {
+    window.location = 'edit_config.php';
+}
+
 function selectArduinoDevice() {
     var arduinoDeviceSelector = document.getElementById('arduinoDevice');
     var wifiDeviceSelector = document.getElementById('wifiDevice');
@@ -67,39 +71,32 @@ function selectsensorDevice() {
         ifCondition.removeChild(ifCondition.firstChild);
     }
 
-    if (sensorDeviceSelector.options[sensorDeviceSelector.selectedIndex].getAttribute('value-name') != 'empty') {
+    if (sensorDeviceSelector.value != 'empty') {
         var sensorSpan = document.createElement('span');
         sensorSpan.setAttribute('id', 'sensor-name');
         sensorSpan.appendChild(document.createTextNode(sensorDeviceSelector.options[sensorDeviceSelector.selectedIndex].getAttribute('value-name')));
         sensorId.appendChild(sensorSpan);
 
         var optionEmpty = document.createElement('option');
-        optionEmpty.setAttribute('value', '  ');
-        optionEmpty.setAttribute('value-name', 'empty');
+        optionEmpty.setAttribute('value', 'empty');
         optionEmpty.appendChild(document.createTextNode(''));
         var optionEqual = document.createElement('option');
-        optionEqual.setAttribute('value', '==');
-        optionEqual.setAttribute('value-name', 'equal');
+        optionEqual.setAttribute('value', 'equal');
         optionEqual.appendChild(document.createTextNode('=='));
         var optionDifferent = document.createElement('option');
-        optionDifferent.setAttribute('value', '!=');
-        optionDifferent.setAttribute('value-name', 'different');
+        optionDifferent.setAttribute('value', 'different');
         optionDifferent.appendChild(document.createTextNode('!='));
         var optionGreater = document.createElement('option');
-        optionGreater.setAttribute('value', '>');
-        optionGreater.setAttribute('value-name', 'greater');
+        optionGreater.setAttribute('value', 'greater');
         optionGreater.appendChild(document.createTextNode('>'));
         var optionGreaterOrEqual = document.createElement('option');
-        optionGreaterOrEqual.setAttribute('value', '>=');
-        optionGreaterOrEqual.setAttribute('value-name', 'greaterOrEqual');
+        optionGreaterOrEqual.setAttribute('value', 'greaterOrEqual');
         optionGreaterOrEqual.appendChild(document.createTextNode('>='));
         var optionLess = document.createElement('option');
-        optionLess.setAttribute('value', '<');
-        optionLess.setAttribute('value-name', 'less');
+        optionLess.setAttribute('value', 'less');
         optionLess.appendChild(document.createTextNode('<'));
         var optionLessOrEqual = document.createElement('option');
-        optionLessOrEqual.setAttribute('value', '<=');
-        optionLessOrEqual.setAttribute('value-name', 'lessOrEqual');
+        optionLessOrEqual.setAttribute('value', 'lessOrEqual');
         optionLessOrEqual.appendChild(document.createTextNode('<='));
         var selectCondition = document.createElement('select');
         selectCondition.setAttribute('id', 'condition-device');
@@ -181,7 +178,7 @@ function selectactuatorDevice() {
         elseOutputField.removeChild(elseOutputField.firstChild);
     }
 
-    if (actuatorDeviceSelector.options[actuatorDeviceSelector.selectedIndex].getAttribute('value-name') != 'empty') {
+    if (actuatorDeviceSelector.value != 'empty') {
         var ifActuatorSpan = document.createElement('span');
         ifActuatorSpan.setAttribute('id', 'if-actuator-name');
         ifActuatorSpan.appendChild(document.createTextNode(actuatorDeviceSelector.options[actuatorDeviceSelector.selectedIndex].getAttribute('value-name')));
