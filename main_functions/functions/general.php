@@ -39,13 +39,13 @@ function output_errors($errors) {
     return '<ul style="color: #ff0000"><li>' . implode('</li><li>', $errors) . '</li></ul>';
 }
 
-function insert_device($device_data) {
+function insert_data($insertion_data, $table) {
     global $db;
-    array_walk($device_data, 'array_sanitize');
-    $fields = '`' . implode('`, `', array_keys($device_data)) . '`';
-    $data = '\'' . implode('\', \'', $device_data) . '\'';
+    array_walk($insertion_data, 'array_sanitize');
+    $fields = '`' . implode('`, `', array_keys($insertion_data)) . '`';
+    $data = '\'' . implode('\', \'', $insertion_data) . '\'';
     
-    $stmt = $db->prepare("INSERT INTO `devices` ($fields) VALUES ($data)");
+    $stmt = $db->prepare("INSERT INTO $table ($fields) VALUES ($data)");
     if ($stmt->execute()) {
         return $stmt->insert_id;
     } else {

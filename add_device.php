@@ -64,8 +64,8 @@ if (empty($_POST) === false && empty($errors) === true) {
         'url' => $_POST['url'],
         'image' => $image_name
     );
-    
-    $inserted_id = insert_device($device_data);
+    $table = '`devices`';
+    $inserted_id = insert_data($device_data, $table);
     if ($inserted_id != 0) {
         $template_paths = "device_templates/device_code/";
         create_device_code("libraryCode", $template_paths, $inserted_id);

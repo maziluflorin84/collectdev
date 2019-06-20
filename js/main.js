@@ -12,7 +12,7 @@ function newConfiguration() {
 function selectArduinoDevice() {
     var arduinoDeviceSelector = document.getElementById('arduinoDevice');
     var wifiDeviceSelector = document.getElementById('wifiDevice');
-    var sensorDeviceSelector = document.getElementById('sensorDevice');
+    var sensorDeviceSelector = document.getElementById('sensor-device');
     var actuatorDeviceSelector = document.getElementById('actuator-device');
 
     if (arduinoDeviceSelector.value != 'empty') {
@@ -26,7 +26,7 @@ function selectArduinoDevice() {
 
 function selectWifiDevice() {
     var wifiDeviceSelector = document.getElementById('wifiDevice');
-    var sensorDeviceSelector = document.getElementById('sensorDevice');
+    var sensorDeviceSelector = document.getElementById('sensor-device');
     var actuatorDeviceSelector = document.getElementById('actuator-device');
 
     if (wifiDeviceSelector.value != 'empty') {
@@ -50,7 +50,7 @@ function deselectDevice(deviceSelector) {
 }
 
 function selectsensorDevice() {
-    var sensorDeviceSelector = document.getElementById('sensorDevice');
+    var sensorDeviceSelector = document.getElementById('sensor-device');
     var sensorId = document.getElementById('if-sensor-id');
     var inputField = document.getElementById('if-input-field');
     var ifCondition = document.getElementById('if-condition');
@@ -67,32 +67,39 @@ function selectsensorDevice() {
         ifCondition.removeChild(ifCondition.firstChild);
     }
 
-    if (sensorDeviceSelector.value != 'empty') {
+    if (sensorDeviceSelector.options[sensorDeviceSelector.selectedIndex].getAttribute('value-name') != 'empty') {
         var sensorSpan = document.createElement('span');
         sensorSpan.setAttribute('id', 'sensor-name');
-        sensorSpan.appendChild(document.createTextNode(sensorDeviceSelector.value));
+        sensorSpan.appendChild(document.createTextNode(sensorDeviceSelector.options[sensorDeviceSelector.selectedIndex].getAttribute('value-name')));
         sensorId.appendChild(sensorSpan);
 
         var optionEmpty = document.createElement('option');
-        optionEmpty.setAttribute('value', 'empty');
+        optionEmpty.setAttribute('value', '  ');
+        optionEmpty.setAttribute('value-name', 'empty');
         optionEmpty.appendChild(document.createTextNode(''));
         var optionEqual = document.createElement('option');
-        optionEqual.setAttribute('value', 'equal');
+        optionEqual.setAttribute('value', '==');
+        optionEqual.setAttribute('value-name', 'equal');
         optionEqual.appendChild(document.createTextNode('=='));
         var optionDifferent = document.createElement('option');
-        optionDifferent.setAttribute('value', 'different');
+        optionDifferent.setAttribute('value', '!=');
+        optionDifferent.setAttribute('value-name', 'different');
         optionDifferent.appendChild(document.createTextNode('!='));
         var optionGreater = document.createElement('option');
-        optionGreater.setAttribute('value', 'greater');
+        optionGreater.setAttribute('value', '>');
+        optionGreater.setAttribute('value-name', 'greater');
         optionGreater.appendChild(document.createTextNode('>'));
         var optionGreaterOrEqual = document.createElement('option');
-        optionGreaterOrEqual.setAttribute('value', 'greaterOrEqual');
+        optionGreaterOrEqual.setAttribute('value', '>=');
+        optionGreaterOrEqual.setAttribute('value-name', 'greaterOrEqual');
         optionGreaterOrEqual.appendChild(document.createTextNode('>='));
         var optionLess = document.createElement('option');
-        optionLess.setAttribute('value', 'less');
+        optionLess.setAttribute('value', '<');
+        optionLess.setAttribute('value-name', 'less');
         optionLess.appendChild(document.createTextNode('<'));
         var optionLessOrEqual = document.createElement('option');
-        optionLessOrEqual.setAttribute('value', 'lessOrEqual');
+        optionLessOrEqual.setAttribute('value', '<=');
+        optionLessOrEqual.setAttribute('value-name', 'lessOrEqual');
         optionLessOrEqual.appendChild(document.createTextNode('<='));
         var selectCondition = document.createElement('select');
         selectCondition.setAttribute('id', 'condition-device');
@@ -174,15 +181,15 @@ function selectactuatorDevice() {
         elseOutputField.removeChild(elseOutputField.firstChild);
     }
 
-    if (actuatorDeviceSelector.value != 'empty') {
+    if (actuatorDeviceSelector.options[actuatorDeviceSelector.selectedIndex].getAttribute('value-name') != 'empty') {
         var ifActuatorSpan = document.createElement('span');
         ifActuatorSpan.setAttribute('id', 'if-actuator-name');
-        ifActuatorSpan.appendChild(document.createTextNode(actuatorDeviceSelector.value));
+        ifActuatorSpan.appendChild(document.createTextNode(actuatorDeviceSelector.options[actuatorDeviceSelector.selectedIndex].getAttribute('value-name')));
         ifActuatorId.appendChild(ifActuatorSpan);
 
         var elseActuatorSpan = document.createElement('span');
         elseActuatorSpan.setAttribute('id', 'else-actuator-name');
-        elseActuatorSpan.appendChild(document.createTextNode(actuatorDeviceSelector.value));
+        elseActuatorSpan.appendChild(document.createTextNode(actuatorDeviceSelector.options[actuatorDeviceSelector.selectedIndex].getAttribute('value-name')));
         elseActuatorId.appendChild(elseActuatorSpan);
 
         var valueOne = actuatorDeviceSelector.options[actuatorDeviceSelector.selectedIndex].getAttribute('value-one');
@@ -256,8 +263,8 @@ function selectactuatorDevice() {
 
             var elseOutputValue = document.createElement('input');
             elseOutputValue.setAttribute('type', 'text');
-            elseOutputValue.setAttribute('id', 'if-output-value');
-            elseOutputValue.setAttribute('name', 'if-output-value');
+            elseOutputValue.setAttribute('id', 'else-output-value');
+            elseOutputValue.setAttribute('name', 'else-output-value');
             elseOutputValue.setAttribute('size', 3);
             elseOutputSpan.appendChild(elseOutputValue);
         }
