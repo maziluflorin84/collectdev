@@ -126,21 +126,11 @@ function get_devices($type) {
     $stmt->execute();
     $stmt->bind_result($ID, $name, $devType, $valueTitle, $valueOne, $valueOrTo, $valueTwo, $libraryCode, $variableCode, $setupCode, $loopCode, $url, $image, $descriptionText);
     while ($row = $stmt->fetch()) {
-        $dataRow = [];
-        $dataRow += ["ID" => $ID];
-        $dataRow += ["name" => $name];
-        $dataRow += ["type" => $devType];
-        $dataRow += ["value_title" => $valueTitle];
-        $dataRow += ["value_one" => $valueOne];
-        $dataRow += ["value_or_to" => $valueOrTo];
-        $dataRow += ["value_two" => $valueTwo];
-        $dataRow += ["library_code" => $libraryCode];
-        $dataRow += ["variable_code" => $variableCode];
-        $dataRow += ["setup_code" => $setupCode];
-        $dataRow += ["loop_code" => $loopCode];
-        $dataRow += ["url" => $url];
-        $dataRow += ["image" => $image];
-        $dataRow += ["description_text" => $descriptionText];
+        $dataRow = array();
+        $dataRow = array_merge($dataRow, array("ID" => $ID, "name" => $name, "type" => $devType, "value_title" => $valueTitle));
+        $dataRow = array_merge($dataRow, array("value_one" => $valueOne, "value_or_to" => $valueOrTo, "value_two" => $valueTwo));
+        $dataRow = array_merge($dataRow, array("library_code" => $libraryCode, "variable_code" => $variableCode, "setup_code" => $setupCode));
+        $dataRow = array_merge($dataRow, array("loop_code" => $loopCode, "url" => $url, "image" => $image, "description_text" => $descriptionText));
         $data[] = $dataRow;
     }
     return $data;
@@ -154,18 +144,11 @@ function get_configurations($userID) {
     $stmt->execute();
     $stmt->bind_result($ID, $title, $ssid, $pass, $userID, $sensorID, $sensorCondition, $sensorValue, $actuatorID, $actuatorValueIf, $actuatorValueElse);
     while ($row = $stmt->fetch()) {
-        $dataRow = [];
-        $dataRow += ["ID" => $ID];
-        $dataRow += ["title" => $title];
-        $dataRow += ["ssid" => $ssid];
-        $dataRow += ["pass" => $pass];
-        $dataRow += ["user_id" => $userID];
-        $dataRow += ["sensor_id" => $sensorID];
-        $dataRow += ["sensor_condition" => $sensorCondition];
-        $dataRow += ["sensor_value" => $sensorValue];
-        $dataRow += ["actuator_id" => $actuatorID];
-        $dataRow += ["actuator_value_if" => $actuatorValueIf];
-        $dataRow += ["actuator_value_else" => $actuatorValueElse];
+        $dataRow = array();
+        $dataRow = array_merge($dataRow, array("ID" => $ID, "title" => $title, "ssid" => $ssid, "pass" => $pass, "user_id" => $userID));
+        $dataRow = array_merge($dataRow, array("sensor_id" => $sensorID, "sensor_condition" => $sensorCondition));
+        $dataRow = array_merge($dataRow, array("sensor_value" => $sensorValue, "actuator_id" => $actuatorID));
+        $dataRow = array_merge($dataRow, array("actuator_value_if" => $actuatorValueIf, "actuator_value_else" => $actuatorValueElse));
         $data[] = $dataRow;
     }
     return $data;
@@ -173,7 +156,7 @@ function get_configurations($userID) {
 
 function get_device($device_id) {
     global $db;
-    $dataRow = [];
+    $dataRow = array();
     $stmt = $db->prepare("SELECT * FROM `devices` WHERE `ID` = ? ");
     $stmt->bind_param("s", $device_id);
     $stmt->execute();
@@ -181,27 +164,18 @@ function get_device($device_id) {
     if ($stmt->num_rows > 0) {
         $stmt->bind_result($ID, $name, $devType, $valueTitle, $valueOne, $valueOrTo, $valueTwo, $libraryCode, $variableCode, $setupCode, $loopCode, $url, $image, $descriptionText);
         $stmt->fetch();
-        $dataRow += ["ID" => $ID];
-        $dataRow += ["name" => $name];
-        $dataRow += ["type" => $devType];
-        $dataRow += ["value_title" => $valueTitle];
-        $dataRow += ["value_one" => $valueOne];
-        $dataRow += ["value_or_to" => $valueOrTo];
-        $dataRow += ["value_two" => $valueTwo];
-        $dataRow += ["library_code" => $libraryCode];
-        $dataRow += ["variable_code" => $variableCode];
-        $dataRow += ["setup_code" => $setupCode];
-        $dataRow += ["loop_code" => $loopCode];
-        $dataRow += ["url" => $url];
-        $dataRow += ["image" => $image];
-        $dataRow += ["description_text" => $descriptionText];
+        $dataRow = array_merge($dataRow, array("ID" => $ID, "name" => $name, "type" => $devType, "value_title" => $valueTitle));
+        $dataRow = array_merge($dataRow, array("value_one" => $valueOne, "value_or_to" => $valueOrTo, "value_two" => $valueTwo));
+        $dataRow = array_merge($dataRow, array("library_code" => $libraryCode, "variable_code" => $variableCode));
+        $dataRow = array_merge($dataRow, array("setup_code" => $setupCode, "loop_code" => $loopCode, "url" => $url, "image" => $image));
+        $dataRow = array_merge($dataRow, array("description_text" => $descriptionText));
     }
     return $dataRow;
 }
 
 function get_configuration($config_id) {
     global $db;
-    $dataRow = [];
+    $dataRow = array();
     $stmt = $db->prepare("SELECT * FROM `configurations` WHERE `ID` = ? ORDER BY `ID` ASC");
     $stmt->bind_param("s", $config_id);
     $stmt->execute();
@@ -209,17 +183,10 @@ function get_configuration($config_id) {
     if ($stmt->num_rows > 0) {
         $stmt->bind_result($ID, $title, $ssid, $pass, $userID, $sensorID, $sensorCondition, $sensorValue, $actuatorID, $actuatorValueIf, $actuatorValueElse);
         $stmt->fetch();
-        $dataRow += ["ID" => $ID];
-        $dataRow += ["title" => $title];
-        $dataRow += ["ssid" => $ssid];
-        $dataRow += ["pass" => $pass];
-        $dataRow += ["user_id" => $userID];
-        $dataRow += ["sensor_id" => $sensorID];
-        $dataRow += ["sensor_condition" => $sensorCondition];
-        $dataRow += ["sensor_value" => $sensorValue];
-        $dataRow += ["actuator_id" => $actuatorID];
-        $dataRow += ["actuator_value_if" => $actuatorValueIf];
-        $dataRow += ["actuator_value_else" => $actuatorValueElse];
+        $dataRow = array_merge($dataRow, array("ID" => $ID, "title" => $title, "ssid" => $ssid, "pass" => $pass, "user_id" => $userID));
+        $dataRow = array_merge($dataRow, array("sensor_id" => $sensorID, "sensor_condition" => $sensorCondition));
+        $dataRow = array_merge($dataRow, array("sensor_value" => $sensorValue, "actuator_id" => $actuatorID)); 
+        $dataRow = array_merge($dataRow, array("actuator_value_if" => $actuatorValueIf, "actuator_value_else" => $actuatorValueElse));
     }
     return $dataRow;
 }

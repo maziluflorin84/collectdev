@@ -37,23 +37,6 @@ if (empty($_POST) === false && empty($errors) === true) {
     $image_destination = 'images/' . $image_name;
     move_uploaded_file($image_tmp_name, $image_destination);
 
-    // $myJSON = null;
-    // $num_of_pins = $_POST['numOfPins'];
-    // if ($num_of_pins > 0) {
-    //     $objJSON = array();
-    //     $item_name = "name";
-    //     $item_value = "value";
-    //     for ($i = 1; $i <= $num_of_pins; $i++) {
-    //         $objJSON += array(
-    //             $i => array(
-    //                 $item_name => $_POST['pin-field-' . $i],
-    //                 $item_value => ""
-    //             )
-    //         );
-    //     }
-    //     $myJSON = json_encode($objJSON);
-    // }
-
     $device_data = array(
         'name' => $_POST['devName'],
         'type' => $_POST['devType'],
@@ -89,14 +72,63 @@ if (empty($errors) === false) {
 <section>
     <form action="" method="post" enctype="multipart/form-data">
         <ul id="formListId">
-            <li>Device type*:<br> 
-                <select id="devType" onchange="selectTypeFunction()" name="devType">
-                    <option value="Empty" disabled selected></option>
-                    <option value="Arduino">Arduino</option>
-                    <option value="Wifi">Wifi Module</option>
-                    <option value="Sensor">Sensor</option>
-                    <option value="Actuator">Actuator</option>
-                </select>
+            <li>Device type*:<br>
+                <div class="rTable">
+                    <div class="rTableRow" align="center">
+                        <div class="rTableCellDevice" align="left">
+                            <input type="radio" name="devType" id="dev-arduino" value="Arduino" onclick="selectTypeFunction(this);">
+                        </div>
+                        <div class="rTableCellDevice" align="left">
+                            <label for="dev-arduino">Arduino</label>
+                        </div>
+                        <div class="rTableCellDevice" align="left">
+                            <label for="dev-arduino"><img src="images/arduino.png" height="75px"></label>
+                        </div>
+                    </div>
+                    <div class="rTableRow" align="center">
+                        <div class="rTableCellDevice" align="left">
+                            <input type="radio" name="devType" id="dev-wifi" value="Wifi" onclick="selectTypeFunction(this);">
+                        </div>
+                        <div class="rTableCellDevice" align="left">
+                            <label for="dev-wifi">Wifi Module</label>
+                        </div>
+                        <div class="rTableCellDevice" align="left">
+                            <label for="dev-wifi"><img src="images/wifi.png" height="75px"></label>
+                        </div>
+                    </div>
+                    <div class="rTableRow" align="center">
+                        <div class="rTableCellDevice" align="left">
+                            <input type="radio" name="devType" id="dev-sensor" value="Sensor" onclick="selectTypeFunction(this);">
+                        </div>
+                        <div class="rTableCellDevice" align="left">
+                            <label for="dev-sensor">Sensor</label>
+                        </div>
+                        <div class="rTableCellDevice" align="left">
+                            <label for="dev-sensor"><img src="images/sensor.png" height="75px"></label>
+                        </div>
+                    </div>
+                    <div class="rTableRow" align="center">
+                        <div class="rTableCellDevice" align="left">
+                            <input type="radio" name="devType" id="dev-actuator" value="Actuator" onclick="selectTypeFunction(this);">
+                        </div>
+                        <div class="rTableCellDevice" align="left">
+                            <label for="dev-actuator">Actuator</label>
+                        </div>
+                        <div class="rTableCellDevice" align="left">
+                            <label for="dev-actuator"><img src="images/actuator.png" height="75px"></label>
+                        </div>
+                    </div>
+                </div>
+                    
+                    
+                    
+                    <!-- <select id="devType" onchange="selectTypeFunction()" name="devType">
+                        <option value="Empty" disabled selected></option>
+                        <option value="Arduino">Arduino</option>
+                        <option value="Wifi">Wifi Module</option>
+                        <option value="Sensor">Sensor</option>
+                        <option value="Actuator">Actuator</option>
+                    </select> -->
             </li>
             <li>Device name*:<br> <input type="text" name="devName">
             </li>

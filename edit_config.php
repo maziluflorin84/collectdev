@@ -4,13 +4,13 @@ include 'includes/overall/header.php';
 
 if (logged_in()) {
     if (empty($_POST) === true) {
-        header('Location: index.php?failed');
+        header('Location: my_configs.php?failed');
     }
 
     if (isset($_REQUEST['configSubmit']) === true && empty($_REQUEST['configSubmit']) === false) {
         if($_REQUEST['configSubmit']=="Delete") {
             if (delete_config($_POST['config-id'])) {
-                header('Location: index.php?delete-success');
+                header('Location: my_configs.php?delete-success');
             }
             exit();
         } else if ($_REQUEST['configSubmit']=="Update and Generate") {
@@ -23,11 +23,11 @@ if (logged_in()) {
                 'actuator_value_else' => $_POST['else-output-value']
             );
             if (update_config($_POST['config-id'], $configurationData)) {
-                header('Location: index.php?update-success');
+                header('Location: my_configs.php?update-success');
             }
             exit();
         } else if($_REQUEST['configSubmit']=="Cancel") {
-            header('Location: index.php');
+            header('Location: my_configs.php');
             exit();
         }
     }

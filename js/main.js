@@ -271,7 +271,7 @@ function selectactuatorDevice() {
     }
 }
 
-function selectTypeFunction() {
+function selectTypeFunction(myRadio) {
     var ul = document.getElementById('formListId');
     var checkValues = document.getElementById('valuesItem');
     var checkLibraries = document.getElementById('libraryItem');
@@ -279,7 +279,8 @@ function selectTypeFunction() {
     var checkSetup = document.getElementById('setupItem');
     var checkLoop = document.getElementById('loopItem');
     var checkDescription = document.getElementById('descriptionItem');
-    var checkSelectValue = document.getElementById('devType').value;
+    // var checkSelectValue = document.getElementById('devType').value;
+    var checkSelectValue = myRadio.value;
 
     if (checkValues != null) {
         checkValues.parentNode.removeChild(checkValues);

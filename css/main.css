@@ -67,6 +67,9 @@ h2 {
 
 body {
     background: lightslategray;
+    /* background: url("/collectdev/images/background-001.jpg");
+    background-repeat: no-repeat;
+    background-size: contain; */
     font-family: Arial, sans-serif;
     font-size: 0.8em;
 }
@@ -134,6 +137,12 @@ footer {
     vertical-align: middle;
 }
 
+.rTableCellDevice {
+    display: table-cell;
+    padding: 5px 5px;
+    vertical-align: middle;
+}
+
 .rTableHead {
     display: table-cell;
     padding: 5px 5px;
@@ -190,6 +199,10 @@ nav ul li a.current {
 
 nav ul li a.last {
     border-right: 0;
+}
+
+ol li {
+    margin-bottom: 10px;
 }
 
 

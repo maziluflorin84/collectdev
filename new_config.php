@@ -29,7 +29,7 @@ if (logged_in()) {
             }
             exit();
         } else if($_REQUEST['configSubmit']=="Cancel") {
-            header('Location: index.php');
+            header('Location: my_configs.php');
             exit();
         }
     }
@@ -69,62 +69,98 @@ if (logged_in()) {
                 <legend>Select devices</legend>
                 <ul>
                     <li>
-                        Arduino:<br/>
-                        <select name="arduinoDevice" id="arduinoDevice" onchange="selectArduinoDevice()">
-                            <option value="empty"></option>
-                            <?php
-                            foreach ($arduinoData as &$value) {
-                                echo "<option value=\"" . $value["name"] . "\" id=\"Arduino_" . $value["ID"] . "\">" . $value["name"] . "</option>";
-                            }
-                            ?>
-                        </select>
+                        Arduino:<br>
+                        <div class="rTable">
+                            <div class="rTableRow" align="center">
+                                <div class="rTableCellDevice" align="left">
+                                    <select name="arduinoDevice" id="arduinoDevice" onchange="selectArduinoDevice()">
+                                        <option value="empty"></option>
+                                        <?php
+                                        foreach ($arduinoData as &$value) {
+                                            echo "<option value=\"" . $value["name"] . "\" id=\"Arduino_" . $value["ID"] . "\">" . $value["name"] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="rTableCellDevice" align="left">
+                                    <img src="images/arduino.png" height="50px">
+                                </div>
+                            </div>
+                        </div>
                     </li>
                     <li>
-                        Wifi:<br/>
-                        <select name="wifiDevice" id="wifiDevice" onchange="selectWifiDevice()" disabled>
-                            <option value="empty"></option>
-                            <?php
-                            foreach ($wifiData as &$value) {
-                                echo "<option value=\"" . $value["name"] . "\" id=\"Wifi_" . $value["ID"] . "\">" . $value["name"] . "</option>";
-                            }
-                            ?>
-                        </select>
+                        Wifi:<br>
+                        <div class="rTable">
+                            <div class="rTableRow" align="center">
+                                <div class="rTableCellDevice" align="left">
+                                    <select name="wifiDevice" id="wifiDevice" onchange="selectWifiDevice()" disabled>
+                                        <option value="empty"></option>
+                                        <?php
+                                        foreach ($wifiData as &$value) {
+                                            echo "<option value=\"" . $value["name"] . "\" id=\"Wifi_" . $value["ID"] . "\">" . $value["name"] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="rTableCellDevice" align="left">
+                                    <img src="images/wifi.png" height="50px">
+                                </div>
+                            </div>
+                        </div>
                     </li>
                     <li>
-                        Sensor:<br/>
-                        <select name="sensor-device" id="sensor-device" onchange="selectsensorDevice()" disabled>
-                            <option value="empty"></option>
-                            <?php
-                            foreach ($sensorData as &$value) {
-                                echo "<option value=\"".$value["ID"]."\" ";
-                                        echo "id=\"Sensor_".$value["ID"]."\" ";
-                                        echo "value-name=\"".$value["name"]."\"";
-                                        echo "value-one=\"".$value["value_one"]."\" ";
-                                        echo "value-or-to=\"".$value["value_or_to"]."\" ";
-                                        echo "value-two=\"".$value["value_two"]."\"> ";
-                                    echo $value["name"];
-                                echo "</option>";
-                            }
-                            ?>
-                        </select>
+                        Sensor:<br>
+                        <div class="rTable">
+                            <div class="rTableRow" align="center">
+                                <div class="rTableCellDevice" align="left">
+                                    <select name="sensor-device" id="sensor-device" onchange="selectsensorDevice()" disabled>
+                                        <option value="empty"></option>
+                                        <?php
+                                        foreach ($sensorData as &$value) {
+                                            echo "<option value=\"".$value["ID"]."\" ";
+                                                    echo "id=\"Sensor_".$value["ID"]."\" ";
+                                                    echo "value-name=\"".$value["name"]."\"";
+                                                    echo "value-one=\"".$value["value_one"]."\" ";
+                                                    echo "value-or-to=\"".$value["value_or_to"]."\" ";
+                                                    echo "value-two=\"".$value["value_two"]."\"> ";
+                                                echo $value["name"];
+                                            echo "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="rTableCellDevice" align="left">
+                                    <img src="images/sensor.png" height="50px">
+                                </div>
+                            </div>
+                        </div>
                     </li>
                     <li>
-                        Actuator:<br/>
-                        <select name="actuator-device" id="actuator-device" onchange="selectactuatorDevice()" disabled>
-                            <option value="empty"></option>
-                            <?php
-                            foreach ($actuatorData as &$value) {
-                                echo "<option value=\"".$value["ID"]."\" ";
-                                        echo "id=\"Sensor_".$value["ID"]."\" ";
-                                        echo "value-name=\"".$value["name"]."\"";
-                                        echo "value-one=\"".$value["value_one"]."\" ";
-                                        echo "value-or-to=\"".$value["value_or_to"]."\" ";
-                                        echo "value-two=\"".$value["value_two"]."\"> ";
-                                    echo $value["name"];
-                                echo "</option>";
-                            }
-                            ?>
-                        </select>
+                        Actuator:<br>
+                        <div class="rTable">
+                            <div class="rTableRow" align="center">
+                                <div class="rTableCellDevice" align="left">
+                                    <select name="actuator-device" id="actuator-device" onchange="selectactuatorDevice()" disabled>
+                                        <option value="empty"></option>
+                                        <?php
+                                        foreach ($actuatorData as &$value) {
+                                            echo "<option value=\"".$value["ID"]."\" ";
+                                                    echo "id=\"Sensor_".$value["ID"]."\" ";
+                                                    echo "value-name=\"".$value["name"]."\"";
+                                                    echo "value-one=\"".$value["value_one"]."\" ";
+                                                    echo "value-or-to=\"".$value["value_or_to"]."\" ";
+                                                    echo "value-two=\"".$value["value_two"]."\"> ";
+                                                echo $value["name"];
+                                            echo "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="rTableCellDevice" align="left">
+                                    <img src="images/actuator.png" height="50px">
+                                </div>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </fieldset>
