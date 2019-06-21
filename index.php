@@ -3,15 +3,6 @@ include 'main_functions/init.php';
 include 'includes/overall/header.php';
 
 if (logged_in()) {
-    // if (empty($_POST) === false) {
-    //     if (delete_config($_POST['config'])) {
-    //         header('Location: index.php?success');
-    //     }
-    //     exit();
-    // }
-    // if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
-    //     echo '<p class="successful-action">Configurations has been deleted!</p>';
-    // }
     if (isset($_GET['failed']) === true && empty($_GET['failed']) === true) {
         echo '<p class="failed-action">Something went wrong!</p>';
     } else if (isset($_GET['delete-success']) === true && empty($_GET['delete-success']) === true) {
@@ -28,10 +19,6 @@ if (logged_in()) {
         if (document.getElementById('configEdit').disabled == true) {
             document.getElementById('configEdit').disabled = false;
         }
-
-        // if (document.getElementById('configDelete').disabled == true) {
-        //     document.getElementById('configDelete').disabled = false;
-        // }
     }
 </script>
 <h1>My Configurations</h1>
@@ -56,7 +43,6 @@ if (logged_in()) {
             ?>
         </fieldset>
         <button type="submit" id="configEdit" name="configEdit" disabled="disabled">Edit</button>
-        <!-- <button type="submit" id="configDelete" name="configDelete" disabled="disabled">Delete</button> -->
     </form>
 </section>
 

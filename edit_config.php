@@ -26,6 +26,9 @@ if (logged_in()) {
                 header('Location: index.php?update-success');
             }
             exit();
+        } else if($_REQUEST['configSubmit']=="Cancel") {
+            header('Location: index.php');
+            exit();
         }
     }
 
@@ -185,6 +188,7 @@ if (logged_in()) {
                 </div>
             </fieldset>
             <input type="submit" name="configSubmit" value="Update and Generate">
+            <input type="submit" name="configSubmit" value="Cancel">
         </div>
     </form>
 </section>

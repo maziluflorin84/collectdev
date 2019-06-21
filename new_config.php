@@ -8,26 +8,32 @@ if (logged_in()) {
     $sensorData = get_devices("Sensor");
     $actuatorData = get_devices("Actuator");
 
-    if (empty($_POST) === false) {
-        $configurationData = array(
-            'title' => $_POST['config-name'],
-            'ssid' => $_POST['wifi-ssid'],
-            'pass' => $_POST['wifi-pass'],
-            'user_id' => $user_data['ID'],
-            'sensor_id' => $_POST['sensor-device'],
-            'sensor_condition' => $_POST['condition-device'],
-            'sensor_value' => $_POST['input-value'],
-            'actuator_id' => $_POST['actuator-device'],
-            'actuator_value_if' => $_POST['if-output-value'],
-            'actuator_value_else' => $_POST['else-output-value']
-        );
-        $table = '`configurations`';
-        $inserted_id = insert_data($configurationData, $table);
-        if ($inserted_id != 0) {
-            header('Location: new_config.php?success');
+    if (isset($_REQUEST['configSubmit']) === true && empty($_REQUEST['configSubmit']) === false) {
+        if ($_REQUEST['configSubmit']=="Save and Generate") {
+            $configurationData = array(
+                'title' => $_POST['config-name'],
+                'ssid' => $_POST['wifi-ssid'],
+                'pass' => $_POST['wifi-pass'],
+                'user_id' => $user_data['ID'],
+                'sensor_id' => $_POST['sensor-device'],
+                'sensor_condition' => $_POST['condition-device'],
+                'sensor_value' => $_POST['input-value'],
+                'actuator_id' => $_POST['actuator-device'],
+                'actuator_value_if' => $_POST['if-output-value'],
+                'actuator_value_else' => $_POST['else-output-value']
+            );
+            $table = '`configurations`';
+            $inserted_id = insert_data($configurationData, $table);
+            if ($inserted_id != 0) {
+                header('Location: new_config.php?success');
+            }
+            exit();
+        } else if($_REQUEST['configSubmit']=="Cancel") {
+            header('Location: index.php');
+            exit();
         }
-        exit();
     }
+
     if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
         echo '<p class="successful-action">Configurations has been added!</p>';
     }
@@ -163,7 +169,8 @@ if (logged_in()) {
                     </div>
                 </div>
             </fieldset>
-            <button type="submit" id="configSubmit" name="configSubmit">Save and Generate code</button>
+            <input type="submit" name="configSubmit" value="Save and Generate">
+            <input type="submit" name="configSubmit" value="Cancel">
         </div>
     </form>
 </section>
