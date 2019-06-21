@@ -129,14 +129,14 @@ footer {
 
 .rTableCell {
     display: table-cell;
-    padding: 5px 10px;
+    padding: 5px 5px;
     font-family: "Courier New";
     vertical-align: middle;
 }
 
 .rTableHead {
     display: table-cell;
-    padding: 5px 10px;
+    padding: 5px 5px;
     font-weight: bold;
 }
 

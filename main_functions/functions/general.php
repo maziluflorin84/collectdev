@@ -64,6 +64,26 @@ function delete_config($config_id) {
     }
 }
 
+function update_config($config_id, $configurationData) {
+    global $db;
+    array_walk($configurationData, 'array_sanitize');
+    $out = "UPDATE `configurations` SET ";
+    $out1 = "";
+    foreach ($configurationData as $key => $value) {
+        $out1 .= "`".$key."` = '$value', ";
+    }
+    $out2 = " WHERE `ID` = ?";
+    $query = $out.rtrim($out1, ", ")." ".$out2."";
+
+    $stmt = $db->prepare($query);
+    $stmt->bind_param("i", $config_id);
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function create_device_code($type, $path, $index) {
     if (isset($_POST[$type]) === true && empty($_POST[$type]) === false) {
         global $db;

@@ -14,6 +14,10 @@ if (logged_in()) {
     // }
     if (isset($_GET['failed']) === true && empty($_GET['failed']) === true) {
         echo '<p class="failed-action">Something went wrong!</p>';
+    } else if (isset($_GET['delete-success']) === true && empty($_GET['delete-success']) === true) {
+        echo '<p class="successful-action">The configuration was successfully deleted!</p>';
+    } else if (isset($_GET['update-success']) === true && empty($_GET['update-success']) === true) {
+        echo '<p class="successful-action">The configuration was updated successfully!</p>';
     }
     $listOfConfigurations = get_configurations($user_data['ID']);
     ?>

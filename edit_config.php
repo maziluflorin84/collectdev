@@ -3,58 +3,51 @@ include 'main_functions/init.php';
 include 'includes/overall/header.php';
 
 if (logged_in()) {
-    // if (empty($_POST) === false) {
-    //     if (delete_config($_POST['config'])) {
-    //         header('Location: index.php?success');
-    //     }
-    //     exit();
-    // }
-    // if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
-    //     echo '<p class="successful-action">Configurations has been deleted!</p>';
-    // }
     if (empty($_POST) === true) {
         header('Location: index.php?failed');
+    }
+
+    if (isset($_REQUEST['configSubmit']) === true && empty($_REQUEST['configSubmit']) === false) {
+        if($_REQUEST['configSubmit']=="Delete") {
+            if (delete_config($_POST['config-id'])) {
+                header('Location: index.php?delete-success');
+            }
+            exit();
+        } else if ($_REQUEST['configSubmit']=="Update and Generate") {
+            $configurationData = array(
+                'ssid' => $_POST['wifi-ssid'],
+                'pass' => $_POST['wifi-pass'],
+                'sensor_condition' => $_POST['condition-device'],
+                'sensor_value' => $_POST['input-value'],
+                'actuator_value_if' => $_POST['if-output-value'],
+                'actuator_value_else' => $_POST['else-output-value']
+            );
+            if (update_config($_POST['config-id'], $configurationData)) {
+                header('Location: index.php?update-success');
+            }
+            exit();
+        }
     }
 
     $configuration = get_configuration($_POST['config']);
     $sensorData = get_device($configuration['sensor_id']);
     $actuatorData = get_device($configuration['actuator_id']);
-
-    // if (empty($_POST) === false) {
-    //     $configurationData = array(
-    //         'title' => $_POST['config-name'],
-    //         'ssid' => $_POST['wifi-ssid'],
-    //         'pass' => $_POST['wifi-pass'],
-    //         'user_id' => $user_data['ID'],
-    //         'sensor_id' => $_POST['sensor-device'],
-    //         'sensor_condition' => $_POST['condition-device'],
-    //         'sensor_value' => $_POST['input-value'],
-    //         'actuator_id' => $_POST['actuator-device'],
-    //         'actuator_value_if' => $_POST['if-output-value'],
-    //         'actuator_value_else' => $_POST['else-output-value']
-    //     );
-    //     $table = '`configurations`';
-    //     $inserted_id = insert_data($configurationData, $table);
-    //     if ($inserted_id != 0) {
-    //         header('Location: new_config.php?success');
-    //     }
-    //     exit();
-    // }
-    // if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
-    //     echo '<p class="successful-action">Configurations has been added!</p>';
-    // }
     ?>
 
 <h1>Edit Configuration</h1>
 <section>
     <form action="" method="post" enctype="multipart/form-data">
+        <p class="failed-action">
+            <input type="submit" name="configSubmit" value="Delete"> * Do not push if you don't want to delete this configuration
+        </p>
         <div style="width: 600px;">
             <fieldset class="config-fieldset">
                 <legend>Configuration Info</legend>
                 <ul id="info" class="config-info-form">
                     <li>
                         Configuration name:<br/>
-                        <input type="text" name="config-name" id="config-name" value="<?php echo $configuration['title']; ?>" disabled>
+                        <input type="hidden" name="config-id" id="config-id" value="<?=$configuration['ID'];?>">
+                        <input type="text" name="config-name" id="config-name" value="<?=$configuration['title'];?>" disabled>
                     </li>
                 </ul>
             </fieldset>
@@ -71,69 +64,6 @@ if (logged_in()) {
                     </li>
                 </ul>
             </fieldset>
-            <!-- <fieldset class="config-fieldset">
-                <legend>Select devices</legend>
-                <ul>
-                    <li>
-                        Arduino:<br/>
-                        <select name="arduinoDevice" id="arduinoDevice" onchange="selectArduinoDevice()">
-                            <option value="empty"></option>
-                            <?php
-                            // foreach ($arduinoData as &$value) {
-                            //     echo "<option value=\"" . $value["name"] . "\" id=\"Arduino_" . $value["ID"] . "\">" . $value["name"] . "</option>";
-                            // }
-                            ?>
-                        </select>
-                    </li>
-                    <li>
-                        Wifi:<br/>
-                        <select name="wifiDevice" id="wifiDevice" onchange="selectWifiDevice()" disabled>
-                            <option value="empty"></option>
-                            <?php
-                            // foreach ($wifiData as &$value) {
-                            //     echo "<option value=\"" . $value["name"] . "\" id=\"Wifi_" . $value["ID"] . "\">" . $value["name"] . "</option>";
-                            // }
-                            ?>
-                        </select>
-                    </li>
-                    <li>
-                        Sensor:<br/>
-                        <select name="sensor-device" id="sensor-device" onchange="selectsensorDevice()" disabled>
-                            <option value="empty"></option>
-                            <?php
-                            // foreach ($sensorData as &$value) {
-                            //     echo "<option value=\"".$value["ID"]."\" ";
-                            //             echo "id=\"Sensor_".$value["ID"]."\" ";
-                            //             echo "value-name=\"".$value["name"]."\"";
-                            //             echo "value-one=\"".$value["value_one"]."\" ";
-                            //             echo "value-or-to=\"".$value["value_or_to"]."\" ";
-                            //             echo "value-two=\"".$value["value_two"]."\"> ";
-                            //         echo $value["name"];
-                            //     echo "</option>";
-                            // }
-                            ?>
-                        </select>
-                    </li>
-                    <li>
-                        Actuator:<br/>
-                        <select name="actuator-device" id="actuator-device" onchange="selectactuatorDevice()" disabled>
-                            <option value="empty"></option>
-                            <?php
-                            // foreach ($actuatorData as &$value) {
-                            //     echo "<option value=\"".$value["ID"]."\" ";
-                            //             echo "id=\"Sensor_".$value["ID"]."\" ";
-                            //             echo "value-name=\"".$value["name"]."\"";
-                            //             echo "value-one=\"".$value["value_one"]."\" ";
-                            //             echo "value-or-to=\"".$value["value_or_to"]."\" ";
-                            //             echo "value-two=\"".$value["value_two"]."\"> ";
-                            //         echo $value["name"];
-                            //     echo "</option>";
-                            // }
-                            ?>
-                        </select>
-                    </li>
-                </ul>
-            </fieldset> -->
             <fieldset class="config-fieldset">
                 <legend>Configuration setup</legend>
                 <div class="rTable">
@@ -254,7 +184,7 @@ if (logged_in()) {
                     </div>
                 </div>
             </fieldset>
-            <button type="submit" id="configSubmit" name="configSubmit">Update and Generate code</button>
+            <input type="submit" name="configSubmit" value="Update and Generate">
         </div>
     </form>
 </section>
