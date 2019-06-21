@@ -1,0 +1,2 @@
+int pirPin = 11;
+int pirValue;

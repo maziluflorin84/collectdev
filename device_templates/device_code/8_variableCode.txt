@@ -1,0 +1,2 @@
+Servo myservo;
+int pos = 0;

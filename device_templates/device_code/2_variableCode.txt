@@ -1,0 +1,2 @@
+const int buttonPin = 8;
+int buttonState = 0;

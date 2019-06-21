@@ -1,0 +1,7 @@
+Install the SSD1306 Driver Library
+
+Download the Adafruit_SSD1306 library (https://github.com/adafruit/Adafruit_SSD1306/archive/master.zip) which is saved to your computer in a file called Adafruit_SSD1306-master.zip.
+
+Copy the Adafruit_SSD1306-master folder from the downloaded zipped file into the Arduino libraries folder. This folder is usually found at Documents → Arduino → libraries on Windows systems. On Linux it is usually found at home folder → Arduino → libraries.
+
+Finally in the Arduino library folder, rename the Adafruit_SSD1306-master folder to Adafruit_SSD1306.

@@ -1,0 +1,1 @@
+pirValue = digitalRead(pirPin);

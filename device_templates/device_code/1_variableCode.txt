@@ -1,0 +1,91 @@
+String ssid = "xxxxx";
+String pass = "*****";
+
+const byte rxPin = 6;
+const byte txPin = 7;
+
+String server = "students.info.uaic.ro";
+String uri = "/~florin.mazilu/collectdev/esppost.php";
+
+SoftwareSerial ESP8266(rxPin, txPin);
+
+unsigned long lastTimeMillis = 0; // last time update
+const unsigned long interval = 15000L; // interval at which to do something (milliseconds)
+
+boolean start = true;
+String response = "";
+boolean jsonFlag = false;
+boolean processJsonFlag = false;
+String actionName = "";
+int actionValue = 0;
+
+void checkWifiModule() {
+    ESP8266.println("AT");
+    delay(1000);
+    if(ESP8266.find((char*)"OK")) {
+        Serial.println("Module works propperly!");
+    } else {
+        Serial.println("There is an issue with the Wifi module!!!");
+        start = false;
+    }
+}
+
+void disconnectWifi() {
+    ESP8266.println("AT+CWQAP");
+    delay(1000);
+    if(ESP8266.find((char*)"OK"))
+        Serial.println("Disconnected from previous network!");
+}
+
+void setWifiMode() {
+    ESP8266.println("AT+CWMODE=1");
+    delay(1000);
+    if(ESP8266.find((char*)"OK"))
+        Serial.println("Wifi mode set to Client!");
+}
+
+void connectWifi() {
+    ESP8266.println("AT+CWJAP=\"" + ssid + "\",\"" + pass + "\"");
+    delay(1000);
+    lastTimeMillis = millis();
+    while (!ESP8266.find((char*)"OK")) {
+        if (millis() - lastTimeMillis > 30000) {
+            Serial.println("Could not connect to wifi network!!!");
+            Serial.println("Maybe ssid or password is wrong");
+            start = false;
+            break;
+        }
+    }
+    if (start) {
+        Serial.println("Connected to \"" + ssid + "\" network!!!");
+        lastTimeMillis = 0;
+    }
+}
+
+void parseResponse(char c) {
+    if (c == '{') {
+        jsonFlag = true;
+        response = c;
+    } else if (c == '}') {
+        jsonFlag = false;
+        response += c;
+        int responseLength = response.length() + 1;
+        char jsonResponse[responseLength];
+        StaticJsonDocument<200> jsonDoc;
+        response.toCharArray(jsonResponse, responseLength);
+        DeserializationError error = deserializeJson(jsonDoc, jsonResponse);
+        if (error) {
+            Serial.print("deserializeJson() failed: ");
+            Serial.println(error.c_str());
+            return;
+        }
+        actionName = "temp";
+        actionValue = jsonDoc[actionName];
+        Serial.println(actionName + " = " + String(actionValue));
+        actionName = "hum";
+        actionValue = jsonDoc[actionName];
+        Serial.println(actionName + " = " + String(actionValue));
+    } else if (jsonFlag) {
+        response += c;
+    }
+}
