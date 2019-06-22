@@ -27,22 +27,24 @@ if (logged_in()) {
 </section>
 <section>
     <form action="edit_config.php" method="post" enctype="multipart/form-data">
-        <fieldset class="config-fieldset">
-            <legend>Configurations</legend>
-            <?php
-            if ($listOfConfigurations) {
-                foreach ($listOfConfigurations as $configuration) {
-                    echo '<label>';
-                        echo '<input type="radio" id="'.$configuration['ID'].'" name="config" value="'.$configuration['ID'].'" onclick="handleClick(this);">';
-                        echo $configuration['title'];
-                    echo '</label><br>';
+        <div style="width: 70%">
+            <fieldset class="config-fieldset">
+                <legend>Configurations</legend>
+                <?php
+                if ($listOfConfigurations) {
+                    foreach ($listOfConfigurations as $configuration) {
+                        echo '<label>';
+                            echo '<input type="radio" id="'.$configuration['ID'].'" name="config" value="'.$configuration['ID'].'" onclick="handleClick(this);">';
+                            echo $configuration['title'];
+                        echo '</label><br>';
+                    }
+                } else {
+                    echo "There are no configurations at the moment!";
                 }
-            } else {
-                echo "There are no configurations at the moment!";
-            }
-            ?>
-        </fieldset>
-        <button type="submit" id="configEdit" name="configEdit" disabled="disabled">Edit</button>
+                ?>
+            </fieldset>
+            <button type="submit" id="configEdit" name="configEdit" disabled="disabled">Edit</button>
+        </div>
     </form>
 </section>
 

@@ -40,10 +40,10 @@ if (logged_in()) {
 <h1>Edit Configuration</h1>
 <section>
     <form action="" method="post" enctype="multipart/form-data">
-        <p class="failed-action">
-            <input type="submit" name="configSubmit" value="Delete"> * Do not push if you don't want to delete this configuration
-        </p>
-        <div style="width: 600px;">
+        <div style="width: 70%">
+            <p class="failed-action">
+                <input type="submit" name="configSubmit" value="Delete"> * Do not push if you don't want to delete this configuration
+            </p>
             <fieldset class="config-fieldset">
                 <legend>Configuration Info</legend>
                 <ul id="info" class="config-info-form">

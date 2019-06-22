@@ -42,7 +42,7 @@ if (logged_in()) {
 <h1>New Configuration</h1>
 <section>
     <form action="" method="post" enctype="multipart/form-data">
-        <div style="width: 600px;">
+        <div style="width: 70%;">
             <fieldset class="config-fieldset">
                 <legend>Configuration Info</legend>
                 <ul id="info" class="config-info-form">
