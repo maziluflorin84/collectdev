@@ -7,13 +7,15 @@ if (logged_in()) {
         header('Location: my_configs.php?failed');
     }
 
-    if (isset($_REQUEST['configSubmit']) === true && empty($_REQUEST['configSubmit']) === false) {
-        if($_REQUEST['configSubmit']=="Delete") {
+    $updated = false;
+
+    if (isset($_REQUEST['config-edit']) === true && empty($_REQUEST['config-edit']) === false) {
+        if($_REQUEST['config-edit']=="Delete") {
             if (delete_config($_POST['config-id'])) {
                 header('Location: my_configs.php?delete-success');
+                exit();
             }
-            exit();
-        } else if ($_REQUEST['configSubmit']=="Update and Generate") {
+        } else if ($_REQUEST['config-edit']=="Update") {
             $configurationData = array(
                 'ssid' => $_POST['wifi-ssid'],
                 'pass' => $_POST['wifi-pass'],
@@ -23,26 +25,32 @@ if (logged_in()) {
                 'actuator_value_else' => $_POST['else-output-value']
             );
             if (update_config($_POST['config-id'], $configurationData)) {
-                header('Location: my_configs.php?update-success');
+                // header('Location: my_configs.php?update-success');
+                // exit();
+                $updated = true;
             }
-            exit();
-        } else if($_REQUEST['configSubmit']=="Cancel") {
+        } else if($_REQUEST['config-edit']=="Cancel") {
             header('Location: my_configs.php');
             exit();
         }
     }
 
-    $configuration = get_configuration($_POST['config']);
+    $configuration = get_configuration($_POST['config-id']);
     $sensorData = get_device($configuration['sensor_id']);
     $actuatorData = get_device($configuration['actuator_id']);
     ?>
 
 <h1>Edit Configuration</h1>
+<?php
+if ($updated) {
+    echo '<p class="successful-action">The configuration was updated successfully!</p>';
+}
+?>
 <section>
     <form action="" method="post" enctype="multipart/form-data">
-        <div style="width: 70%">
+        <div>
             <p class="failed-action">
-                <input type="submit" name="configSubmit" value="Delete"> * Do not push if you don't want to delete this configuration
+                <input type="submit" name="config-edit" value="Delete"> * Do not push if you don't want to delete this configuration
             </p>
             <fieldset class="config-fieldset">
                 <legend>Configuration Info</legend>
@@ -187,8 +195,37 @@ if (logged_in()) {
                     </div>
                 </div>
             </fieldset>
-            <input type="submit" name="configSubmit" value="Update and Generate">
-            <input type="submit" name="configSubmit" value="Cancel">
+            <input type="submit" name="config-edit" value="Update">
+            <input type="submit" name="config-edit" value="Generate">
+            <input type="submit" name="config-edit" value="Cancel"><br><br>
+
+            <?php
+            if (isset($_REQUEST['config-edit']) === true && $_REQUEST['config-edit']=="Generate") {
+            ?>
+                <fieldset class="config-fieldset">
+                    <legend>Arduino code</legend>
+                    <div>
+                        <pre>
+                            <code id="configuration" class="arduino">
+<?php
+$handle = fopen("device_templates/client_server_communication/client_server_communication.ino", "r");
+if ($handle) {
+    while (($line = fgets($handle)) !== false) {
+        echo str_replace("<", "&lt;", $line);
+    }
+    fclose($handle);
+} else {
+    echo "File not found";
+}
+?>
+                            </code>
+                        </pre>
+                        <a href="#copy-text" onclick="copyToClipboard('#configuration')" id="copy-text">Copy code</a><br><br>
+                    </div>
+                </fieldset>
+            <?php
+            }
+            ?>
         </div>
     </form>
 </section>

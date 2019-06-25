@@ -16,8 +16,8 @@ if (logged_in()) {
 <script type="text/javascript">
     var currentValue = 0;
     function handleClick(myRadio) {
-        if (document.getElementById('configEdit').disabled == true) {
-            document.getElementById('configEdit').disabled = false;
+        if (document.getElementById('config-edit').disabled == true) {
+            document.getElementById('config-edit').disabled = false;
         }
     }
 </script>
@@ -27,14 +27,14 @@ if (logged_in()) {
 </section>
 <section>
     <form action="edit_config.php" method="post" enctype="multipart/form-data">
-        <div style="width: 70%">
+        <div>
             <fieldset class="config-fieldset">
                 <legend>Configurations</legend>
                 <?php
                 if ($listOfConfigurations) {
                     foreach ($listOfConfigurations as $configuration) {
                         echo '<label>';
-                            echo '<input type="radio" id="'.$configuration['ID'].'" name="config" value="'.$configuration['ID'].'" onclick="handleClick(this);">';
+                            echo '<input type="radio" id="'.$configuration['ID'].'" name="config-id" value="'.$configuration['ID'].'" onclick="handleClick(this);">';
                             echo $configuration['title'];
                         echo '</label><br>';
                     }
@@ -43,7 +43,7 @@ if (logged_in()) {
                 }
                 ?>
             </fieldset>
-            <button type="submit" id="configEdit" name="configEdit" disabled="disabled">Edit</button>
+            <input type="submit" id="config-edit" name="config-edit" disabled="disabled" value="Edit">
         </div>
     </form>
 </section>

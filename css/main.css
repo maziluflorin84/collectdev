@@ -209,7 +209,7 @@ ol li {
 /* Aside */
 
 aside {
-    width: 25%;
+    width: 30%;
     float: right;
     border-left: 1px dashed #aaa;
     padding-left: 15px;
@@ -244,6 +244,7 @@ code {
 
 section {
     padding: 0 0 20px 0;
+    width: 65%;
 }
 
 
@@ -282,6 +283,21 @@ input:-ms-input-placeholder {
 
 input::-webkit-input-placeholder {
     color: #999
+}
+
+a#copy-text:link,
+a#copy-text:visited,
+a#copy-text:active {
+    color: lightslategray;
+    text-decoration: none;
+}
+
+
+/* mouse over link */
+
+a#copy-text:hover {
+    color: #008800;
+    text-decoration: none;
 }
 
 

@@ -142,13 +142,14 @@ function get_configurations($userID) {
     $stmt = $db->prepare("SELECT * FROM `configurations` WHERE `user_id` = ? ORDER BY `ID` ASC");
     $stmt->bind_param("s", $userID);
     $stmt->execute();
-    $stmt->bind_result($ID, $title, $ssid, $pass, $userID, $sensorID, $sensorCondition, $sensorValue, $actuatorID, $actuatorValueIf, $actuatorValueElse);
+    $stmt->bind_result($ID, $title, $ssid, $pass, $userID, $arduinoID, $wifiID, $sensorID, $sensorCondition, $sensorValue, $actuatorID, $actuatorValueIf, $actuatorValueElse);
     while ($row = $stmt->fetch()) {
         $dataRow = array();
         $dataRow = array_merge($dataRow, array("ID" => $ID, "title" => $title, "ssid" => $ssid, "pass" => $pass, "user_id" => $userID));
-        $dataRow = array_merge($dataRow, array("sensor_id" => $sensorID, "sensor_condition" => $sensorCondition));
-        $dataRow = array_merge($dataRow, array("sensor_value" => $sensorValue, "actuator_id" => $actuatorID));
-        $dataRow = array_merge($dataRow, array("actuator_value_if" => $actuatorValueIf, "actuator_value_else" => $actuatorValueElse));
+        $dataRow = array_merge($dataRow, array("arduino_id" => $arduinoID, "wifi_id" => $wifiID, "sensor_id" => $sensorID));
+        $dataRow = array_merge($dataRow, array("sensor_condition" => $sensorCondition, "sensor_value" => $sensorValue));
+        $dataRow = array_merge($dataRow, array("actuator_id" => $actuatorID, "actuator_value_if" => $actuatorValueIf));
+        $dataRow = array_merge($dataRow, array("actuator_value_else" => $actuatorValueElse));
         $data[] = $dataRow;
     }
     return $data;
@@ -181,12 +182,13 @@ function get_configuration($config_id) {
     $stmt->execute();
     $stmt->store_result();
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($ID, $title, $ssid, $pass, $userID, $sensorID, $sensorCondition, $sensorValue, $actuatorID, $actuatorValueIf, $actuatorValueElse);
+        $stmt->bind_result($ID, $title, $ssid, $pass, $userID, $arduinoID, $wifiID, $sensorID, $sensorCondition, $sensorValue, $actuatorID, $actuatorValueIf, $actuatorValueElse);
         $stmt->fetch();
         $dataRow = array_merge($dataRow, array("ID" => $ID, "title" => $title, "ssid" => $ssid, "pass" => $pass, "user_id" => $userID));
-        $dataRow = array_merge($dataRow, array("sensor_id" => $sensorID, "sensor_condition" => $sensorCondition));
-        $dataRow = array_merge($dataRow, array("sensor_value" => $sensorValue, "actuator_id" => $actuatorID)); 
-        $dataRow = array_merge($dataRow, array("actuator_value_if" => $actuatorValueIf, "actuator_value_else" => $actuatorValueElse));
+        $dataRow = array_merge($dataRow, array("arduino_id" => $arduinoID, "wifi_id" => $wifiID, "sensor_id" => $sensorID));
+        $dataRow = array_merge($dataRow, array("sensor_condition" => $sensorCondition, "sensor_value" => $sensorValue));
+        $dataRow = array_merge($dataRow, array("actuator_id" => $actuatorID, "actuator_value_if" => $actuatorValueIf));
+        $dataRow = array_merge($dataRow, array("actuator_value_else" => $actuatorValueElse));
     }
     return $dataRow;
 }

@@ -15,6 +15,8 @@ if (logged_in()) {
                 'ssid' => $_POST['wifi-ssid'],
                 'pass' => $_POST['wifi-pass'],
                 'user_id' => $user_data['ID'],
+                'arduino_id' => $_POST['arduino-device'],
+                'wifi_id' => $_POST['wifi-device'],
                 'sensor_id' => $_POST['sensor-device'],
                 'sensor_condition' => $_POST['condition-device'],
                 'sensor_value' => $_POST['input-value'],
@@ -26,8 +28,8 @@ if (logged_in()) {
             $inserted_id = insert_data($configurationData, $table);
             if ($inserted_id != 0) {
                 header('Location: new_config.php?success');
+                exit();
             }
-            exit();
         } else if($_REQUEST['configSubmit']=="Cancel") {
             header('Location: my_configs.php');
             exit();
@@ -42,7 +44,7 @@ if (logged_in()) {
 <h1>New Configuration</h1>
 <section>
     <form action="" method="post" enctype="multipart/form-data">
-        <div style="width: 70%;">
+        <div>
             <fieldset class="config-fieldset">
                 <legend>Configuration Info</legend>
                 <ul id="info" class="config-info-form">
@@ -73,11 +75,15 @@ if (logged_in()) {
                         <div class="rTable">
                             <div class="rTableRow" align="center">
                                 <div class="rTableCellDevice" align="left">
-                                    <select name="arduinoDevice" id="arduinoDevice" onchange="selectArduinoDevice()">
+                                    <select name="arduino-device" id="arduino-device" onchange="selectArduinoDevice()">
                                         <option value="empty"></option>
                                         <?php
                                         foreach ($arduinoData as &$value) {
-                                            echo "<option value=\"" . $value["name"] . "\" id=\"Arduino_" . $value["ID"] . "\">" . $value["name"] . "</option>";
+                                            echo "<option value=\"".$value["ID"]."\" ";
+                                                    echo "id=\"Arduino_".$value["ID"]."\" ";
+                                                    echo "value-name=\"".$value["name"]."\">";
+                                                echo $value["name"];
+                                            echo "</option>";
                                         }
                                         ?>
                                     </select>
@@ -93,11 +99,15 @@ if (logged_in()) {
                         <div class="rTable">
                             <div class="rTableRow" align="center">
                                 <div class="rTableCellDevice" align="left">
-                                    <select name="wifiDevice" id="wifiDevice" onchange="selectWifiDevice()" disabled>
+                                    <select name="wifi-device" id="wifi-device" onchange="selectWifiDevice()" disabled>
                                         <option value="empty"></option>
                                         <?php
                                         foreach ($wifiData as &$value) {
-                                            echo "<option value=\"" . $value["name"] . "\" id=\"Wifi_" . $value["ID"] . "\">" . $value["name"] . "</option>";
+                                            echo "<option value=\"".$value["ID"]."\" ";
+                                                    echo "id=\"Wifi_".$value["ID"]."\" ";
+                                                    echo "value-name=\"".$value["name"]."\">";
+                                                echo $value["name"];
+                                            echo "</option>";
                                         }
                                         ?>
                                     </select>

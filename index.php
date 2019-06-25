@@ -7,7 +7,7 @@ if (logged_in()) {
  
 <h1>Home</h1>
 <section>
-    <div style="width: 70%">
+    <div>
         Steps to take when creating a Configuration
         <ol>
             <li>agsdfasfddsfagsdfasfddsfagsdfasfddsf</li>

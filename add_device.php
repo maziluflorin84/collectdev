@@ -71,7 +71,7 @@ if (empty($errors) === false) {
 
 <section>
     <form action="" method="post" enctype="multipart/form-data">
-        <div style="width: 70%">
+        <div>
             <ul id="formListId">
                 <li>Device type*:<br>
                     <div class="rTable">

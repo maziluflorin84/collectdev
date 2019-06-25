@@ -14,8 +14,8 @@ function editConfiguration() {
 }
 
 function selectArduinoDevice() {
-    var arduinoDeviceSelector = document.getElementById('arduinoDevice');
-    var wifiDeviceSelector = document.getElementById('wifiDevice');
+    var arduinoDeviceSelector = document.getElementById('arduino-device');
+    var wifiDeviceSelector = document.getElementById('wifi-device');
     var sensorDeviceSelector = document.getElementById('sensor-device');
     var actuatorDeviceSelector = document.getElementById('actuator-device');
 
@@ -29,7 +29,7 @@ function selectArduinoDevice() {
 }
 
 function selectWifiDevice() {
-    var wifiDeviceSelector = document.getElementById('wifiDevice');
+    var wifiDeviceSelector = document.getElementById('wifi-device');
     var sensorDeviceSelector = document.getElementById('sensor-device');
     var actuatorDeviceSelector = document.getElementById('actuator-device');
 
