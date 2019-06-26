@@ -8,7 +8,7 @@ function recover($email) {
 
     change_password(user_id_from_email($email), $generated_password);
 
-    email($email, 'Your CollectDev password recovery', "Hello " . $first_name . "\nYour new password is: " . $generated_password . "\n\n Please log in and change it!\n\n CollectDev");
+    email($email, 'Your Online Arduino Manager password recovery', "Hello " . $first_name . "\nYour new password is: " . $generated_password . "\n\n Please log in and change it!\n\n CollectDev");
 }
 
 function update_user($user_id, $update_data) {
@@ -49,7 +49,7 @@ function register_user($register_data) {
 
     $stmt = $db->prepare("INSERT INTO `users` ($fields) VALUES ($data)");
     $stmt->execute();
-    email($register_data['email'],'Account created on CollectDev!', "Hello " . $register_data['first_name'] . "\n\nYou have just created an account with the following login credentials:\nemail = " . $register_data['email'] . "\npassword = " . $password . "\n\nIf you have not requested an account with this email address, please send us an email at florin.mazilu@info.uaic.ro\n\nHave a great day!\nCollectDev");
+    email($register_data['email'],'Account created on Online Arduino Manager!', "Hello " . $register_data['first_name'] . "\n\nYou have just created an account with the following login credentials:\nemail = " . $register_data['email'] . "\npassword = " . $password . "\n\nIf you have not requested an account with this email address, please send us an email at florin.mazilu@info.uaic.ro\n\nHave a great day!\nCollectDev");
 }
 
 function user_first_name($user_id) {

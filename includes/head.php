@@ -1,5 +1,5 @@
 <head>
-    <title>Collect Devices</title>
+    <title>Online Arduino Manager</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/arduino-light.css">
