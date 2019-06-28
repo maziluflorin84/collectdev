@@ -393,3 +393,28 @@ function setOtherThanArduino(ul) {
         ul.appendChild(li);
     }
 }
+
+function setConfigurationWidth(configurationId, titleId, sensorName, operator, sensorValue, actuatorName, actuatorValueIf, actuatorValueElse) {
+    var fullWidth = document.getElementById("id-confgi-fieldset").offsetWidth;
+    var inputWidth = document.getElementById(configurationId).offsetWidth;
+    var titleWidth = document.getElementById(titleId).offsetWidth;
+    var contentWidth = (fullWidth - inputWidth - titleWidth - 40) + 'px';
+
+    var label = document.getElementById('label-' + configurationId);
+    var divTitle = document.createElement('div');
+
+    divTitle.setAttribute('style', 'display: inline-block;');
+    divTitle.setAttribute('id', 'div-content-' + configurationId);
+    divTitle.appendChild(document.createTextNode('-> if ( ' + sensorName + ' ' + operator + ' ' + sensorValue + ' ) then { ' + actuatorName + ' = ' + actuatorValueIf + ' } else { ' + actuatorName + ' = ' + actuatorValueElse + ' }'));
+    label.appendChild(divTitle);
+
+    var divContent = document.getElementById('div-content-' + configurationId);
+
+    divContent.style.display = 'inline-block';
+    divContent.style.color = '#999';
+    divContent.style.fontFamily = 'Courier New';
+    divContent.style.whiteSpace = 'nowrap';
+    divContent.style.overflow = 'hidden';
+    divContent.style.textOverflow = 'ellipsis';
+    divContent.style.width = contentWidth;
+}

@@ -7,7 +7,12 @@ if (logged_in()) {
         header('Location: my_configs.php?failed');
     }
 
+    $configuration = get_configuration($_POST['config-id']);
+    $sensorData = get_device($configuration['sensor_id']);
+    $actuatorData = get_device($configuration['actuator_id']);
+    
     $updated = false;
+    $generate = false;
 
     if (isset($_REQUEST['config-edit']) === true && empty($_REQUEST['config-edit']) === false) {
         if($_REQUEST['config-edit']=="Delete") {
@@ -24,6 +29,9 @@ if (logged_in()) {
                 'actuator_value_if' => $_POST['if-output-value'],
                 'actuator_value_else' => $_POST['else-output-value']
             );
+            if ($configuration['ssid'] != $configurationData['ssid'] || $configuration['pass'] != $configurationData['pass']) {
+                $generate = true;
+            }
             if (update_config($_POST['config-id'], $configurationData)) {
                 // header('Location: my_configs.php?update-success');
                 // exit();
@@ -34,10 +42,6 @@ if (logged_in()) {
             exit();
         }
     }
-
-    $configuration = get_configuration($_POST['config-id']);
-    $sensorData = get_device($configuration['sensor_id']);
-    $actuatorData = get_device($configuration['actuator_id']);
     ?>
 
 <h1>Edit Configuration</h1>
@@ -45,6 +49,44 @@ if (logged_in()) {
 if ($updated) {
     echo '<p class="successful-action">The configuration was updated successfully!</p>';
 }
+?>
+
+<?php
+if ($updated && $generate) {
+    echo '<p class="successful-action">You must upload this code to Arduino IDE!</p>';
+?>
+<section>
+    <fieldset class="config-fieldset">
+        <legend>Arduino code</legend>
+        <div>
+            <pre>
+                <code id="configuration" class="arduino">
+<?php
+$handle = fopen("device_templates/client_server_communication/client_server_communication.ino", "r");
+if ($handle) {
+    while (($line = fgets($handle)) !== false) {
+        echo str_replace("<", "&lt;", $line);
+    }
+    fclose($handle);
+} else {
+    echo "File not found";
+}
+?>
+                </code>
+            </pre>
+            <a href="#copy-text" onclick="copyToClipboard('#configuration')" id="copy-text">Copy code</a><br><br>
+        </div>
+    </fieldset>
+    <form action="my_configs.php">
+        <input type="submit" name="config-back" value="Back">
+    </form>
+</section>
+
+<?php
+} else {
+    if ($updated && !$generate) {
+        echo '<p class="successful-action">The changes should be available from now!</p>';
+    }
 ?>
 <section>
     <form action="" method="post" enctype="multipart/form-data">
@@ -196,41 +238,12 @@ if ($updated) {
                 </div>
             </fieldset>
             <input type="submit" name="config-edit" value="Update">
-            <input type="submit" name="config-edit" value="Generate">
-            <input type="submit" name="config-edit" value="Cancel"><br><br>
-
-            <?php
-            if (isset($_REQUEST['config-edit']) === true && $_REQUEST['config-edit']=="Generate") {
-            ?>
-                <fieldset class="config-fieldset">
-                    <legend>Arduino code</legend>
-                    <div>
-                        <pre>
-                            <code id="configuration" class="arduino">
-<?php
-$handle = fopen("device_templates/client_server_communication/client_server_communication.ino", "r");
-if ($handle) {
-    while (($line = fgets($handle)) !== false) {
-        echo str_replace("<", "&lt;", $line);
-    }
-    fclose($handle);
-} else {
-    echo "File not found";
-}
-?>
-                            </code>
-                        </pre>
-                        <a href="#copy-text" onclick="copyToClipboard('#configuration')" id="copy-text">Copy code</a><br><br>
-                    </div>
-                </fieldset>
-            <?php
-            }
-            ?>
+            <input type="submit" name="config-edit" value="Cancel">
         </div>
     </form>
 </section>
-
 <?php
+}
 }
 
 include 'includes/overall/footer.php';

@@ -28,15 +28,36 @@ if (logged_in()) {
 <section>
     <form action="edit_config.php" method="post" enctype="multipart/form-data">
         <div>
-            <fieldset class="config-fieldset">
+            <fieldset class="config-fieldset" id="id-confgi-fieldset">
                 <legend>Configurations</legend>
                 <?php
                 if ($listOfConfigurations) {
                     foreach ($listOfConfigurations as $configuration) {
-                        echo '<label>';
+                        $sensorData = get_device($configuration['sensor_id']);
+                        $actuatorData = get_device($configuration['actuator_id']);
+                        $operator = '';
+                        switch ($configuration['sensor_condition']) {
+                            case 'equal': $operator = '==';
+                                break;
+                            case 'different': $operator = '!=';
+                                break;
+                            case 'greater': $operator = '>';
+                                break;
+                            case 'greaterOrEqual': $operator = '>=';
+                                break;
+                            case 'less': $operator = '<';
+                                break;
+                            case 'lessOrEqual': $operator = '<=';
+                                break;
+                        }
+                        echo '<label id="label-'.$configuration['ID'].'" style="font-size: 0.9em;">';
                             echo '<input type="radio" id="'.$configuration['ID'].'" name="config-id" value="'.$configuration['ID'].'" onclick="handleClick(this);">';
+                            echo '<div style="display: inline-block; Courier New; white-space: nowrap; overflow: hidden;" id="div-title-'.$configuration['ID'].'">';
                             echo $configuration['title'];
+                            echo '</div> ';
+                            echo '<script>setConfigurationWidth("'.$configuration['ID'].'", "div-title-'.$configuration['ID'].'", "'.$sensorData['name'].'", "'.$operator.'", "'.$configuration['sensor_value'].'", "'.$actuatorData['name'].'", "'.$configuration['actuator_value_if'].'", "'.$configuration['actuator_value_else'].'")</script>';
                         echo '</label><br>';
+                        echo (next($listOfConfigurations)==true) ? '<br>' : '';
                     }
                 } else {
                     echo "There are no configurations at the moment!";

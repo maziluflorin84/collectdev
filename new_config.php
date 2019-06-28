@@ -8,8 +8,10 @@ if (logged_in()) {
     $sensorData = get_devices("Sensor");
     $actuatorData = get_devices("Actuator");
 
+    $inserted_id = 0;
+
     if (isset($_REQUEST['configSubmit']) === true && empty($_REQUEST['configSubmit']) === false) {
-        if ($_REQUEST['configSubmit']=="Save and Generate") {
+        if ($_REQUEST['configSubmit']=="Save") {
             $configurationData = array(
                 'title' => $_POST['config-name'],
                 'ssid' => $_POST['wifi-ssid'],
@@ -26,22 +28,58 @@ if (logged_in()) {
             );
             $table = '`configurations`';
             $inserted_id = insert_data($configurationData, $table);
-            if ($inserted_id != 0) {
-                header('Location: new_config.php?success');
-                exit();
-            }
+            // if ($inserted_id != 0) {
+            //     header('Location: new_config.php?success');
+            //     exit();
+            // }
         } else if($_REQUEST['configSubmit']=="Cancel") {
             header('Location: my_configs.php');
             exit();
         }
     }
 
-    if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
-        echo '<p class="successful-action">Configurations has been added!</p>';
-    }
+    // if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
+    //     echo '<p class="successful-action">Configurations has been added!</p>';
+    // }
     ?>
 
 <h1>New Configuration</h1>
+
+<?php
+if ($inserted_id != 0) {
+    $configuration = get_configuration($inserted_id);
+?>
+<p class="successful-action">Configuration has been added!</p>
+<p class="successful-action">You must upload this code to Arduino IDE!</p>
+<section>
+<fieldset class="config-fieldset">
+    <legend>Arduino code</legend>
+    <div>
+        <pre>
+            <code id="configuration" class="arduino">
+<?php
+$handle = fopen("device_templates/client_server_communication/client_server_communication.ino", "r");
+if ($handle) {
+    while (($line = fgets($handle)) !== false) {
+        echo str_replace("<", "&lt;", $line);
+    }
+    fclose($handle);
+} else {
+    echo "File not found";
+}
+?>
+                </code>
+            </pre>
+            <a href="#copy-text" onclick="copyToClipboard('#configuration')" id="copy-text">Copy code</a><br><br>
+        </div>
+    </fieldset>
+    <form action="my_configs.php">
+        <input type="submit" name="config-back" value="Back">
+    </form>
+</section>
+<?php
+} else {
+?>
 <section>
     <form action="" method="post" enctype="multipart/form-data">
         <div>
@@ -215,13 +253,13 @@ if (logged_in()) {
                     </div>
                 </div>
             </fieldset>
-            <input type="submit" name="configSubmit" value="Save and Generate">
+            <input type="submit" name="configSubmit" value="Save">
             <input type="submit" name="configSubmit" value="Cancel">
         </div>
     </form>
 </section>
-
 <?php
+}
 }
 
 include 'includes/overall/footer.php';
