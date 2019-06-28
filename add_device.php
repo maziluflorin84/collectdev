@@ -85,16 +85,22 @@ if (empty($errors) === false) {
                             <div class="rTableCellDevice" align="left">
                                 <label for="dev-arduino"><img src="images/arduino.png" height="75px"></label>
                             </div>
+                            <div class="rTableCellDevice" align="left">
+                                <label for="dev-arduino">Various kinds of Arduino boards are available depending on different microcontrollers used. However, all Arduino boards have one thing in common: they are programed through the Arduino IDE.</label>
+                            </div>
                         </div>
                         <div class="rTableRow" align="center">
                             <div class="rTableCellDevice" align="left">
                                 <input type="radio" name="devType" id="dev-wifi" value="Wifi" onclick="selectTypeFunction(this);">
                             </div>
                             <div class="rTableCellDevice" align="left">
-                                <label for="dev-wifi">Wifi Module</label>
+                                <label for="dev-wifi">Wifi</label>
                             </div>
                             <div class="rTableCellDevice" align="left">
                                 <label for="dev-wifi"><img src="images/wifi.png" height="75px"></label>
+                            </div>
+                            <div class="rTableCellDevice" align="left">
+                                <label for="dev-wifi">It connects your Arduino to the internet wirelessly. Connect it to your wireless network by following a few simple instructions to start controlling your world through the internet.</label>
                             </div>
                         </div>
                         <div class="rTableRow" align="center">
@@ -107,6 +113,9 @@ if (empty($errors) === false) {
                             <div class="rTableCellDevice" align="left">
                                 <label for="dev-sensor"><img src="images/sensor.png" height="75px"></label>
                             </div>
+                            <div class="rTableCellDevice" align="left">
+                                <label for="dev-sensor">Sensor are devices, modules, or subsystems whose purposes are to detect events or changes in their environment and send informations to Arduino</label>
+                            </div>
                         </div>
                         <div class="rTableRow" align="center">
                             <div class="rTableCellDevice" align="left">
@@ -117,6 +126,9 @@ if (empty($errors) === false) {
                             </div>
                             <div class="rTableCellDevice" align="left">
                                 <label for="dev-actuator"><img src="images/actuator.png" height="75px"></label>
+                            </div>
+                            <div class="rTableCellDevice" align="left">
+                                <label for="dev-actuator">Actuators typically are mechanical devices that take energy and converts it into some kind of motion</label>
                             </div>
                         </div>
                     </div>

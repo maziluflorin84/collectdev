@@ -59,7 +59,7 @@ h2 {
 }
 
 .logo h1 {
-    color: #000;
+    color: #fff;
 }
 
 
@@ -72,6 +72,7 @@ body {
     background-size: contain; */
     font-family: Arial, sans-serif;
     font-size: 0.8em;
+    color: #424d57;
 }
 
 main,
@@ -111,7 +112,7 @@ footer {
 .widget ul li a:link,
 .widget ul li a:visited {
     text-decoration: underline;
-    color: #000;
+    color: #424d57;
 }
 
 .widget ul li a:hover {
@@ -182,7 +183,7 @@ nav ul li a {
     padding: 0.5rem;
     border: 1px solid rgb(100, 115, 130);
     border-radius: 0.5rem;
-    color: #000;
+    color: #424d57;
 }
 
 nav ul li a:hover {
@@ -278,11 +279,23 @@ input::-moz-placeholder {
 }
 
 input:-ms-input-placeholder {
-    color: #999
+    color: #999;
 }
 
 input::-webkit-input-placeholder {
-    color: #999
+    color: #999;
+}
+
+select {
+    color: #424d57;
+}
+
+input {
+    color: #424d57;
+}
+
+button {
+    color: #424d57;
 }
 
 a#copy-text:link,
