@@ -192,3 +192,16 @@ function get_configuration($config_id) {
     }
     return $dataRow;
 }
+
+function print_code($codeFile) {
+    if ($codeFile) {    
+        $deviceSection = fopen("device_templates/device_code/".$codeFile, "r");
+        if ($deviceSection) {
+            while (($line = fgets($deviceSection)) !== false) {
+                echo str_replace("<", "&lt;", $line);
+            }
+            echo "<br>";
+            fclose($deviceSection);
+        }
+    }
+}

@@ -1,6 +1,3 @@
-String ssid = "xxxxx";
-String pass = "*****";
-
 const byte rxPin = 6;
 const byte txPin = 7;
 

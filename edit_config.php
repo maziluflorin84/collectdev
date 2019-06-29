@@ -8,6 +8,7 @@ if (logged_in()) {
     }
 
     $configuration = get_configuration($_POST['config-id']);
+    $wifiData = get_device($configuration['wifi_id']);
     $sensorData = get_device($configuration['sensor_id']);
     $actuatorData = get_device($configuration['actuator_id']);
     
@@ -33,8 +34,6 @@ if (logged_in()) {
                 $generate = true;
             }
             if (update_config($_POST['config-id'], $configurationData)) {
-                // header('Location: my_configs.php?update-success');
-                // exit();
                 $updated = true;
             }
         } else if($_REQUEST['config-edit']=="Cancel") {
@@ -56,27 +55,39 @@ if ($updated && $generate) {
     echo '<p class="successful-action">You must upload this code to Arduino IDE!</p>';
 ?>
 <section>
-    <fieldset class="config-fieldset">
-        <legend>Arduino code</legend>
-        <div>
-            <pre>
-                <code id="configuration" class="arduino">
+    <div style="/*width: 65%;*/">
+        <pre>
+            <code id="configuration" class="arduino" style="/*width: 65%;*/">
 <?php
-$handle = fopen("device_templates/client_server_communication/client_server_communication.ino", "r");
-if ($handle) {
-    while (($line = fgets($handle)) !== false) {
-        echo str_replace("<", "&lt;", $line);
-    }
-    fclose($handle);
-} else {
-    echo "File not found";
-}
+print_code($wifiData['library_code']);
+print_code($sensorData['library_code']);
+print_code($actuatorData['library_code']);
+echo "<br>";
+
+echo "int configurationID = ".$configuration['ID'].";<br>";
+echo "String ssid = \"".$configuration['ssid']."\";<br>";
+echo "String pass = \"".$configuration['pass']."\";<br>";
+print_code($wifiData['variable_code']);
+print_code($sensorData['variable_code']);
+print_code($actuatorData['variable_code']);
+echo "<br>";
+
+echo "void setup() {<br>";
+print_code($wifiData['setup_code']);
+print_code($sensorData['setup_code']);
+print_code($actuatorData['setup_code']);
+echo "}<br>";
+
+echo "void loop() {<br>";
+print_code($wifiData['loop_code']);
+print_code($sensorData['loop_code']);
+print_code($actuatorData['loop_code']);
+echo "}<br>";
 ?>
-                </code>
-            </pre>
-            <a href="#copy-text" onclick="copyToClipboard('#configuration')" id="copy-text">Copy code</a><br><br>
-        </div>
-    </fieldset>
+            </code>
+        </pre>
+        <a href="#copy-text" onclick="copyToClipboard('#configuration')" id="copy-text">Copy code</a><br><br>
+    </div>
     <form action="my_configs.php">
         <input type="submit" name="config-back" value="Back">
     </form>
