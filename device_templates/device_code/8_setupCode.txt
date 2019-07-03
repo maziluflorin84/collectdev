@@ -1,1 +1,1 @@
-myservo.attach(A5);
+myservo.attach(A5);  // attaches the servo on pin A5 to the servo object

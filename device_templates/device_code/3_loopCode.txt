@@ -1,1 +1,10 @@
-digitalWrite(ledPin, HIGH);
+if (WiFiModule.available()) {
+    char c = WiFiModule.read();
+    if (parseResponse(c)) {
+        if (strcmp(actionValue, "ON")==0) {
+            digitalWrite(ledPin, HIGH);
+        } else {
+            digitalWrite(ledPin, LOW);
+        }
+    }
+}

@@ -1,1 +1,4 @@
-pirValue = digitalRead(pirPin);
+else {
+    data += digitalRead(pirPin);
+    sensorValue = String(data);
+}

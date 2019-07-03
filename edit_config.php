@@ -34,6 +34,12 @@ if (logged_in()) {
                 $generate = true;
             }
             if (update_config($_POST['config-id'], $configurationData)) {
+                $configuration['ssid'] = $_POST['wifi-ssid'];
+                $configuration['pass'] = $_POST['wifi-pass'];
+                $configuration['sensor_condition'] = $_POST['condition-device'];
+                $configuration['sensor_value'] = $_POST['input-value'];
+                $configuration['actuator_value_if'] = $_POST['if-output-value'];
+                $configuration['actuator_value_else'] = $_POST['else-output-value'];
                 $updated = true;
             }
         } else if($_REQUEST['config-edit']=="Cancel") {
@@ -55,33 +61,34 @@ if ($updated && $generate) {
     echo '<p class="successful-action">You must upload this code to Arduino IDE!</p>';
 ?>
 <section>
-    <div style="/*width: 65%;*/">
+    <div>
         <pre>
-            <code id="configuration" class="arduino" style="/*width: 65%;*/">
+            <code id="configuration" class="arduino">
 <?php
-print_code($wifiData['library_code']);
-print_code($sensorData['library_code']);
-print_code($actuatorData['library_code']);
+print_code($wifiData['library_code'], "");
+print_code($sensorData['library_code'], "");
+print_code($actuatorData['library_code'], "");
 echo "<br>";
 
 echo "int configurationID = ".$configuration['ID'].";<br>";
 echo "String ssid = \"".$configuration['ssid']."\";<br>";
 echo "String pass = \"".$configuration['pass']."\";<br>";
-print_code($wifiData['variable_code']);
-print_code($sensorData['variable_code']);
-print_code($actuatorData['variable_code']);
+echo "String server = \"".getHostByName(getHostName())."\";<br>";
+print_code($wifiData['variable_code'], "");
+print_code($sensorData['variable_code'], "");
+print_code($actuatorData['variable_code'], "");
 echo "<br>";
 
 echo "void setup() {<br>";
-print_code($wifiData['setup_code']);
-print_code($sensorData['setup_code']);
-print_code($actuatorData['setup_code']);
+print_code($wifiData['setup_code'], "    ");
+print_code($sensorData['setup_code'], "    ");
+print_code($actuatorData['setup_code'], "    ");
 echo "}<br>";
 
 echo "void loop() {<br>";
-print_code($wifiData['loop_code']);
-print_code($sensorData['loop_code']);
-print_code($actuatorData['loop_code']);
+print_code($actuatorData['loop_code'], "    ");    
+print_code($wifiData['loop_code'], "    ");
+print_code($sensorData['loop_code'], "    ");
 echo "}<br>";
 ?>
             </code>

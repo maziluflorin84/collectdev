@@ -3,10 +3,10 @@ include 'main_functions/init.php';
 include 'includes/overall/header.php';
 
 if (logged_in()) {
-    $arduinoData = get_devices("Arduino");
-    $wifiData = get_devices("Wifi");
-    $sensorData = get_devices("Sensor");
-    $actuatorData = get_devices("Actuator");
+    $arduinosData = get_devices("Arduino");
+    $wifisData = get_devices("Wifi");
+    $sensorsData = get_devices("Sensor");
+    $actuatorsData = get_devices("Actuator");
 
     $inserted_id = 0;
 
@@ -37,10 +37,6 @@ if (logged_in()) {
             exit();
         }
     }
-
-    // if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
-    //     echo '<p class="successful-action">Configurations has been added!</p>';
-    // }
     ?>
 
 <h1>New Configuration</h1>
@@ -48,31 +44,47 @@ if (logged_in()) {
 <?php
 if ($inserted_id != 0) {
     $configuration = get_configuration($inserted_id);
+    $wifiData = get_device($configuration['wifi_id']);
+    $sensorData = get_device($configuration['sensor_id']);
+    $actuatorData = get_device($configuration['actuator_id']);
 ?>
 <p class="successful-action">Configuration has been added!</p>
 <p class="successful-action">You must upload this code to Arduino IDE!</p>
 <section>
-<fieldset class="config-fieldset">
-    <legend>Arduino code</legend>
     <div>
         <pre>
             <code id="configuration" class="arduino">
 <?php
-$handle = fopen("device_templates/client_server_communication/client_server_communication.ino", "r");
-if ($handle) {
-    while (($line = fgets($handle)) !== false) {
-        echo str_replace("<", "&lt;", $line);
-    }
-    fclose($handle);
-} else {
-    echo "File not found";
-}
+print_code($wifiData['library_code'], "");
+print_code($sensorData['library_code'], "");
+print_code($actuatorData['library_code'], "");
+echo "<br>";
+
+echo "int configurationID = ".$configuration['ID'].";<br>";
+echo "String ssid = \"".$configuration['ssid']."\";<br>";
+echo "String pass = \"".$configuration['pass']."\";<br>";
+echo "String server = \"".getHostByName(getHostName())."\";<br>";
+print_code($wifiData['variable_code'], "");
+print_code($sensorData['variable_code'], "");
+print_code($actuatorData['variable_code'], "");
+echo "<br>";
+
+echo "void setup() {<br>";
+print_code($wifiData['setup_code'], "    ");
+print_code($sensorData['setup_code'], "    ");
+print_code($actuatorData['setup_code'], "    ");
+echo "}<br>";
+
+echo "void loop() {<br>";
+print_code($actuatorData['loop_code'], "    ");    
+print_code($wifiData['loop_code'], "    ");
+print_code($sensorData['loop_code'], "    ");
+echo "}<br>";
 ?>
-                </code>
-            </pre>
-            <a href="#copy-text" onclick="copyToClipboard('#configuration')" id="copy-text">Copy code</a><br><br>
-        </div>
-    </fieldset>
+            </code>
+        </pre>
+        <a href="#copy-text" onclick="copyToClipboard('#configuration')" id="copy-text">Copy code</a><br><br>
+    </div>
     <form action="my_configs.php">
         <input type="submit" name="config-back" value="Back">
     </form>
@@ -116,7 +128,7 @@ if ($handle) {
                                     <select name="arduino-device" id="arduino-device" onchange="selectArduinoDevice()">
                                         <option value="empty"></option>
                                         <?php
-                                        foreach ($arduinoData as &$value) {
+                                        foreach ($arduinosData as &$value) {
                                             echo "<option value=\"".$value["ID"]."\" ";
                                                     echo "id=\"Arduino_".$value["ID"]."\" ";
                                                     echo "value-name=\"".$value["name"]."\">";
@@ -140,7 +152,7 @@ if ($handle) {
                                     <select name="wifi-device" id="wifi-device" onchange="selectWifiDevice()" disabled>
                                         <option value="empty"></option>
                                         <?php
-                                        foreach ($wifiData as &$value) {
+                                        foreach ($wifisData as &$value) {
                                             echo "<option value=\"".$value["ID"]."\" ";
                                                     echo "id=\"Wifi_".$value["ID"]."\" ";
                                                     echo "value-name=\"".$value["name"]."\">";
@@ -164,7 +176,7 @@ if ($handle) {
                                     <select name="sensor-device" id="sensor-device" onchange="selectsensorDevice()" disabled>
                                         <option value="empty"></option>
                                         <?php
-                                        foreach ($sensorData as &$value) {
+                                        foreach ($sensorsData as &$value) {
                                             echo "<option value=\"".$value["ID"]."\" ";
                                                     echo "id=\"Sensor_".$value["ID"]."\" ";
                                                     echo "value-name=\"".$value["name"]."\"";
@@ -191,7 +203,7 @@ if ($handle) {
                                     <select name="actuator-device" id="actuator-device" onchange="selectactuatorDevice()" disabled>
                                         <option value="empty"></option>
                                         <?php
-                                        foreach ($actuatorData as &$value) {
+                                        foreach ($actuatorsData as &$value) {
                                             echo "<option value=\"".$value["ID"]."\" ";
                                                     echo "id=\"Sensor_".$value["ID"]."\" ";
                                                     echo "value-name=\"".$value["name"]."\"";

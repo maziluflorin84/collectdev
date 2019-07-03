@@ -1,13 +1,13 @@
 Serial.begin(9600);
-    ESP8266.begin(9600);
-    delay(2000);
+WiFiModule.begin(9600);
+delay(2000);
 
-    checkWifiModule();
+checkWifiModule();
 
-    if (start) {
-        disconnectWifi();
-        
-        setWifiMode();
-        
-        connectWifi();
-    }
+if (start) {
+    disconnectWifi();
+    
+    setWifiMode();
+    
+    connectWifi();
+}

@@ -1,2 +1,1 @@
-const int buttonPin = 8;
-int buttonState = 0;
+const int buttonPin = 8;     // the number of the pushbutton pin

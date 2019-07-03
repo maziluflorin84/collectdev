@@ -1,1 +1,4 @@
-buttonState = digitalRead(buttonPin);
+else {
+    data += digitalRead(buttonPin);
+    sensorValue = String(data);
+}

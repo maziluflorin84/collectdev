@@ -1,23 +1,20 @@
 if (start && millis() - lastTimeMillis > interval) {
-        Serial.println();
-        Serial.println("=====> Setting up GET request <=====");
-        ESP8266.println("AT+CIPMUX=1");
-        delay(1000);
-    
-        ESP8266.println("AT+CIPSTART=0,\"TCP\",\"" + server + "\",80");
-        delay(1000);
-    
-        String cmd = "GET " + uri + "?temp=1&hum=2 HTTP/1.1\r\nHost:" + server + "\r\nConnection:close\r\n";
-        ESP8266.println("AT+CIPSEND=0," + String(cmd.length() + 4));
-        delay(1000);
-        lastTimeMillis = millis();
-    
-        ESP8266.println(cmd);
-        delay(1000);
-        ESP8266.println(""); 
-    }
+    data = 0;
+    Serial.println();
+    Serial.println("=====> Setting up GET request <=====");
+    WiFiModule.println("AT+CIPMUX=1");
+    delay(1000);
 
-    if (ESP8266.available()) {
-        char c = ESP8266.read();
-        parseResponse(c);
-    }
+    WiFiModule.println("AT+CIPSTART=0,\"TCP\",\"" + server + "\",80");
+    delay(1000);
+
+    String cmd = "GET " + uri + "?configurationID=" + configurationID + "&sensorValue=" + sensorValue + " HTTP/1.1\r\nHost:" + server + "\r\nConnection:close\r\n";
+    Serial.println(cmd);
+    WiFiModule.println("AT+CIPSEND=0," + String(cmd.length() + 4));
+    delay(1000);
+    lastTimeMillis = millis();
+
+    WiFiModule.println(cmd);
+    delay(1000);
+    WiFiModule.println(""); 
+}

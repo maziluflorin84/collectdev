@@ -1,1 +1,1 @@
-const int ledPin = A0;
+const int ledPin =  A0;      // the number of the LED pin

@@ -1,25 +1,28 @@
+String uri = "/collectdev/esppost.php";
+
 const byte rxPin = 6;
 const byte txPin = 7;
 
-String server = "students.info.uaic.ro";
-String uri = "/~florin.mazilu/collectdev/esppost.php";
+//String server = "students.info.uaic.ro";
+//String uri = "/~florin.mazilu/collectdev/esppost.php";
 
-SoftwareSerial ESP8266(rxPin, txPin);
+SoftwareSerial WiFiModule(rxPin, txPin);
 
 unsigned long lastTimeMillis = 0; // last time update
-const unsigned long interval = 15000L; // interval at which to do something (milliseconds)
+const unsigned long interval = 10000L; // interval at which to do something (milliseconds)
 
 boolean start = true;
 String response = "";
 boolean jsonFlag = false;
 boolean processJsonFlag = false;
-String actionName = "";
-int actionValue = 0;
+long data = 0;
+char* actionValue;
+String sensorValue = "";
 
 void checkWifiModule() {
-    ESP8266.println("AT");
+    WiFiModule.println("AT");
     delay(1000);
-    if(ESP8266.find((char*)"OK")) {
+    if(WiFiModule.find((char*)"OK")) {
         Serial.println("Module works propperly!");
     } else {
         Serial.println("There is an issue with the Wifi module!!!");
@@ -28,24 +31,24 @@ void checkWifiModule() {
 }
 
 void disconnectWifi() {
-    ESP8266.println("AT+CWQAP");
+    WiFiModule.println("AT+CWQAP");
     delay(1000);
-    if(ESP8266.find((char*)"OK"))
+    if(WiFiModule.find((char*)"OK"))
         Serial.println("Disconnected from previous network!");
 }
 
 void setWifiMode() {
-    ESP8266.println("AT+CWMODE=1");
+    WiFiModule.println("AT+CWMODE=1");
     delay(1000);
-    if(ESP8266.find((char*)"OK"))
+    if(WiFiModule.find((char*)"OK"))
         Serial.println("Wifi mode set to Client!");
 }
 
 void connectWifi() {
-    ESP8266.println("AT+CWJAP=\"" + ssid + "\",\"" + pass + "\"");
+    WiFiModule.println("AT+CWJAP=\"" + ssid + "\",\"" + pass + "\"");
     delay(1000);
     lastTimeMillis = millis();
-    while (!ESP8266.find((char*)"OK")) {
+    while (!WiFiModule.find((char*)"OK")) {
         if (millis() - lastTimeMillis > 30000) {
             Serial.println("Could not connect to wifi network!!!");
             Serial.println("Maybe ssid or password is wrong");
@@ -59,7 +62,8 @@ void connectWifi() {
     }
 }
 
-void parseResponse(char c) {
+boolean parseResponse(char c) {
+    boolean startAction = false;
     if (c == '{') {
         jsonFlag = true;
         response = c;
@@ -74,15 +78,12 @@ void parseResponse(char c) {
         if (error) {
             Serial.print("deserializeJson() failed: ");
             Serial.println(error.c_str());
-            return;
         }
-        actionName = "temp";
-        actionValue = jsonDoc[actionName];
-        Serial.println(actionName + " = " + String(actionValue));
-        actionName = "hum";
-        actionValue = jsonDoc[actionName];
-        Serial.println(actionName + " = " + String(actionValue));
+        actionValue = jsonDoc["actuatorValue"];
+        Serial.println("actuatorValue = " + String(actionValue));
+        startAction = true;
     } else if (jsonFlag) {
         response += c;
     }
+    return startAction;
 }

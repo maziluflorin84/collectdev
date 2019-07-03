@@ -193,12 +193,12 @@ function get_configuration($config_id) {
     return $dataRow;
 }
 
-function print_code($codeFile) {
+function print_code($codeFile, $indent) {
     if ($codeFile) {    
         $deviceSection = fopen("device_templates/device_code/".$codeFile, "r");
         if ($deviceSection) {
             while (($line = fgets($deviceSection)) !== false) {
-                echo str_replace("<", "&lt;", $line);
+                echo $indent . str_replace("<", "&lt;", $line);
             }
             echo "<br>";
             fclose($deviceSection);

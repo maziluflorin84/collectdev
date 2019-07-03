@@ -1,2 +1,1 @@
-int pirPin = 11;
-int pirValue;
+const int pirPin = 11;        // Input for HC-S501

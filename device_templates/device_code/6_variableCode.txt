@@ -1,2 +1,3 @@
-#define trigPin 12
-#define echoPin 11
+const int trigPin = 12;
+const int echoPin = 11;
+unsigned long lastTimeMillisSens = 0; // last time update sensor
