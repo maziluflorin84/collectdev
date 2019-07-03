@@ -205,3 +205,20 @@ function print_code($codeFile, $indent) {
         }
     }
 }
+
+function get_all_devices() {
+    global $db;
+    $data = array();
+    $stmt = $db->prepare("SELECT * FROM `devices` ORDER BY `name` ASC");
+    $stmt->execute();
+    $stmt->bind_result($ID, $name, $devType, $valueTitle, $valueOne, $valueOrTo, $valueTwo, $libraryCode, $variableCode, $setupCode, $loopCode, $url, $image, $descriptionText);
+    while ($row = $stmt->fetch()) {
+        $dataRow = array();
+        $dataRow = array_merge($dataRow, array("ID" => $ID, "name" => $name, "type" => $devType, "value_title" => $valueTitle));
+        $dataRow = array_merge($dataRow, array("value_one" => $valueOne, "value_or_to" => $valueOrTo, "value_two" => $valueTwo));
+        $dataRow = array_merge($dataRow, array("library_code" => $libraryCode, "variable_code" => $variableCode, "setup_code" => $setupCode));
+        $dataRow = array_merge($dataRow, array("loop_code" => $loopCode, "url" => $url, "image" => $image, "description_text" => $descriptionText));
+        $data[] = $dataRow;
+    }
+    return $data;
+}

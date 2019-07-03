@@ -53,7 +53,7 @@ function deselectDevice(deviceSelector) {
     deviceSelector.disabled = true;
 }
 
-function selectsensorDevice() {
+function selectSensorDevice() {
     var sensorDeviceSelector = document.getElementById('sensor-device');
     var sensorId = document.getElementById('if-sensor-id');
     var inputField = document.getElementById('if-input-field');
@@ -417,4 +417,21 @@ function setConfigurationWidth(configurationId, titleId, sensorName, operator, s
     divContent.style.overflow = 'hidden';
     divContent.style.textOverflow = 'ellipsis';
     divContent.style.width = contentWidth;
+}
+
+function showDeviceImage() {
+    var deviceSelector = document.getElementById('devices');
+    var divImage = document.getElementById('image');
+
+    if (divImage.firstChild) {
+        divImage.removeChild(divImage.firstChild);
+    }
+
+    if (deviceSelector.value != 'empty') {
+        var deviceImage = document.createElement('img');
+        deviceImage.setAttribute('src', 'images/' + deviceSelector.options[deviceSelector.selectedIndex].getAttribute('value-image'));
+        deviceImage.setAttribute('alt', deviceSelector.options[deviceSelector.selectedIndex].getAttribute('value-name'));
+        deviceImage.setAttribute('style', 'width: 100%;');
+        divImage.appendChild(deviceImage);
+    }
 }

@@ -173,7 +173,7 @@ echo "}<br>";
                         <div class="rTable">
                             <div class="rTableRow" align="center">
                                 <div class="rTableCellDevice" align="left">
-                                    <select name="sensor-device" id="sensor-device" onchange="selectsensorDevice()" disabled>
+                                    <select name="sensor-device" id="sensor-device" onchange="selectSensorDevice()" disabled>
                                         <option value="empty"></option>
                                         <?php
                                         foreach ($sensorsData as &$value) {
