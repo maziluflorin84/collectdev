@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2019 at 03:13 PM
+-- Generation Time: Jul 04, 2019 at 07:04 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -34,6 +34,8 @@ CREATE TABLE `configurations` (
   `ssid` varchar(255) NOT NULL,
   `pass` varchar(255) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `arduino_id` int(11) NOT NULL,
+  `wifi_id` int(11) NOT NULL,
   `sensor_id` int(11) NOT NULL,
   `sensor_condition` varchar(15) NOT NULL,
   `sensor_value` varchar(20) NOT NULL,
@@ -46,10 +48,17 @@ CREATE TABLE `configurations` (
 -- Dumping data for table `configurations`
 --
 
-INSERT INTO `configurations` (`ID`, `title`, `ssid`, `pass`, `user_id`, `sensor_id`, `sensor_condition`, `sensor_value`, `actuator_id`, `actuator_value_if`, `actuator_value_else`) VALUES
-(21, 'First', 'Internet', '24021964', 1, 2, 'different', '5000', 3, 'ON', 'OFF'),
-(22, 'Second', 'Miruna', 'breniuc2312', 1, 5, 'greater', '15', 3, 'ON', 'OFF'),
-(23, 'Third', 'Miruna', 'breniuc2312', 1, 2, 'less', '30', 7, 'STOP', 'OK');
+INSERT INTO `configurations` (`ID`, `title`, `ssid`, `pass`, `user_id`, `arduino_id`, `wifi_id`, `sensor_id`, `sensor_condition`, `sensor_value`, `actuator_id`, `actuator_value_if`, `actuator_value_else`) VALUES
+(25, 'Fifth', 'Miruna', 'breniuc2312', 1, 4, 1, 6, 'greater', '50', 3, 'ON', 'OFF'),
+(24, 'Fourth', 'Miruna', 'breniuc2312', 1, 4, 1, 5, 'greater', '0', 8, 'ON', 'OFF'),
+(26, 'New', 'Miruna', 'breniuc2312', 1, 4, 1, 5, 'equal', '0', 3, 'OFF', 'ON'),
+(40, 'Test two', 'Miruna', 'breniuc2312', 1, 4, 1, 2, 'equal', '0', 3, 'ON', 'OFF'),
+(41, 'Test display', 'Mirunas', 'breniuc2312', 1, 4, 1, 5, 'equal', '0', 7, 'No movement', 'STOP'),
+(27, 'New 2', 'Internets', '24021964', 1, 4, 1, 6, 'lessOrEqual', '130', 7, 'STOP', 'OK'),
+(32, 'Lkjh', 'Internet', '24021964', 1, 4, 1, 2, 'equal', '1', 3, 'OFF', 'ON'),
+(31, 'Asdf', 'Internet', '24021964', 1, 9, 1, 2, 'greaterOrEqual', '69', 8, 'OFF', 'ON'),
+(33, 'Qwert', 'Internet', '24021964', 1, 4, 1, 2, 'greater', '5', 3, 'ON', 'OFF'),
+(38, 'as dfsdgf dfgh fdgsd ghd  dfsg  ds hfd', 'Internet', '24021964', 1, 4, 1, 2, 'greater', '13', 3, 'OFF', 'ON');
 
 -- --------------------------------------------------------
 
@@ -146,7 +155,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `configurations`
 --
 ALTER TABLE `configurations`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `devices`

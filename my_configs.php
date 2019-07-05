@@ -32,6 +32,7 @@ if (logged_in()) {
                 <legend>Configurations</legend>
                 <?php
                 if ($listOfConfigurations) {
+                    $counter = 0;
                     foreach ($listOfConfigurations as $configuration) {
                         $sensorData = get_device($configuration['sensor_id']);
                         $actuatorData = get_device($configuration['actuator_id']);
@@ -57,7 +58,10 @@ if (logged_in()) {
                             echo '</div> ';
                             echo '<script>setConfigurationWidth("'.$configuration['ID'].'", "div-title-'.$configuration['ID'].'", "'.$sensorData['name'].'", "'.$operator.'", "'.$configuration['sensor_value'].'", "'.$actuatorData['name'].'", "'.$configuration['actuator_value_if'].'", "'.$configuration['actuator_value_else'].'")</script>';
                         echo '</label><br>';
-                        echo (next($listOfConfigurations)==true) ? '<br>' : '';
+                        if ($counter < count($listOfConfigurations) - 1) {
+                            echo '<br>';
+                        }
+                        $counter = $counter + 1;
                     }
                 } else {
                     echo "There are no configurations at the moment!";
